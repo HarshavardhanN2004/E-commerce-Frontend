@@ -1,0 +1,120 @@
+.unauthorized-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  background: linear-gradient(
+    135deg,
+    #f8fafc,
+    #eef2ff
+  );
+}
+
+.unauthorized-card {
+  width: 100%;
+  max-width: 500px;
+  padding: 50px 35px;
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+}
+
+.unauthorized-icon {
+  width: 85px;
+  height: 85px;
+  margin: 0 auto 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #eef2ff;
+  font-size: 40px;
+}
+
+.unauthorized-card h1 {
+  margin-bottom: 8px;
+  font-size: 32px;
+  font-weight: 800;
+  color: #111827;
+}
+
+.unauthorized-card h2 {
+  margin-bottom: 18px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #6366f1;
+}
+
+.unauthorized-card p {
+  margin-bottom: 8px;
+  color: #6b7280;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.unauthorized-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.unauthorized-home-btn,
+.unauthorized-back-btn {
+  padding: 11px 22px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.unauthorized-home-btn {
+  border: 1px solid #6366f1;
+  background-color: #6366f1;
+  color: #ffffff;
+}
+
+.unauthorized-home-btn:hover {
+  background-color: #4f46e5;
+  transform: translateY(-2px);
+}
+
+.unauthorized-back-btn {
+  border: 1px solid #d1d5db;
+  background-color: #ffffff;
+  color: #374151;
+}
+
+.unauthorized-back-btn:hover {
+  background-color: #f3f4f6;
+  transform: translateY(-2px);
+}
+
+
+@media (max-width: 500px) {
+
+  .unauthorized-card {
+    padding: 40px 22px;
+  }
+
+  .unauthorized-card h1 {
+    font-size: 27px;
+  }
+
+  .unauthorized-card h2 {
+    font-size: 18px;
+  }
+
+  .unauthorized-buttons {
+    flex-direction: column;
+  }
+
+  .unauthorized-home-btn,
+  .unauthorized-back-btn {
+    width: 100%;
+  }
+}
+

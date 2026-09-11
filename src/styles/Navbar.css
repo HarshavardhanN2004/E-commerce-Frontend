@@ -1,0 +1,93 @@
+.shop-navbar {
+    min-height: 70px;
+    background: #111827;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.shop-logo {
+    border: none;
+    background: transparent;
+    color: #ffffff;
+    font-size: 25px;
+    font-weight: 700;
+    padding: 0;
+    cursor: pointer;
+}
+
+.shop-logo:hover {
+    color: #0d6efd;
+}
+
+.nav-button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.shop-navbar .nav-link {
+    margin: 0 5px;
+    color: #d1d5db;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.shop-navbar .nav-link:hover {
+    color: #ffffff;
+}
+
+.navbar-user {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #ffffff;
+}
+
+.welcome-text {
+    color: #9ca3af;
+    font-size: 14px;
+}
+
+.user-name {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.user-role {
+    padding: 3px 9px;
+    border-radius: 20px;
+    background: #2563eb;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.logout-button {
+    border: none;
+    border-radius: 8px;
+    padding: 8px 17px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+@media (max-width: 991px) {
+    .navbar-user {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+        padding: 15px 0;
+    }
+
+    .user-info {
+        flex-wrap: wrap;
+    }
+
+    .logout-button {
+        width: 100%;
+    }
+}

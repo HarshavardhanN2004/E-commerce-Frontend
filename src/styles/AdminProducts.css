@@ -1,0 +1,275 @@
+/* ==============================
+   Admin Products Page
+   ============================== */
+
+.admin-products-page {
+  min-height: calc(100vh - 70px);
+  background-color: #f8f9fa;
+  padding: 40px 0;
+}
+
+.admin-products-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.admin-products-header h1 {
+  margin-bottom: 5px;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.admin-products-header p {
+  margin-bottom: 0;
+  color: #6c757d;
+}
+
+
+/* ==============================
+   Products Table
+   ============================== */
+
+.admin-products-table {
+  background-color: #ffffff;
+  vertical-align: middle;
+}
+
+.admin-products-table thead th {
+  background-color: #212529;
+  color: #ffffff;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.admin-products-table tbody td {
+  vertical-align: middle;
+}
+
+.admin-products-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+
+/* ==============================
+   Product Image
+   ============================== */
+
+.admin-product-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+}
+
+
+/* ==============================
+   Add / Edit Product Modal
+   ============================== */
+
+.product-modal-title {
+  font-weight: 600;
+}
+
+.admin-product-modal {
+  display: block;
+  overflow-y: auto;
+}
+
+.admin-product-modal .modal-dialog {
+  max-width: 800px;
+  margin: 10px auto;
+  min-height: calc(100vh - 20px);
+}
+
+.admin-product-modal .modal-content {
+  max-height: calc(100vh - 20px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Important: form must also become a flex container */
+.admin-product-modal form {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+/* Only the body should scroll */
+.admin-product-modal .modal-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+/* Footer stays visible */
+.admin-product-modal .modal-footer {
+  flex-shrink: 0;
+  background-color: #ffffff;
+  border-top: 1px solid #dee2e6;
+}
+
+.admin-product-modal .modal-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+/* ==============================
+   Product Form
+   ============================== */
+
+.admin-product-modal .form-label {
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.admin-product-modal .form-control,
+.admin-product-modal .form-select {
+  min-height: 42px;
+}
+
+.admin-product-modal textarea.form-control {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.admin-product-modal .text-danger {
+  font-size: 14px;
+}
+
+
+/* ==============================
+   Product Image Preview
+   ============================== */
+
+.product-image-preview {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.product-image-preview img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #dee2e6;
+  padding: 3px;
+  background-color: #ffffff;
+}
+
+
+/* ==============================
+   Delete Confirmation Modal
+   ============================== */
+
+.delete-product-icon {
+  width: 55px;
+  height: 55px;
+  margin: 0 auto;
+  border: 3px solid #dc3545;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-product-icon span {
+  font-size: 30px;
+  font-weight: 700;
+  color: #dc3545;
+}
+
+
+/* ==============================
+   Bootstrap Modal Layer
+   ============================== */
+
+.modal {
+  z-index: 1055;
+}
+
+.modal-backdrop {
+  z-index: 1050;
+}
+
+
+/* ==============================
+   Mobile Responsive
+   ============================== */
+
+@media (max-width: 768px) {
+
+  .admin-products-page {
+    padding: 25px 0;
+  }
+
+  .admin-products-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .admin-products-header h1 {
+    font-size: 25px;
+  }
+
+  .admin-products-header .btn {
+    width: 100%;
+  }
+
+  .admin-products-table {
+    font-size: 14px;
+  }
+
+  .admin-product-image {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+
+/* ==============================
+   Small Mobile
+   ============================== */
+
+@media (max-width: 576px) {
+
+  .admin-products-page {
+    padding: 20px 0;
+  }
+
+  .admin-products-header h1 {
+    font-size: 22px;
+  }
+
+  .admin-products-table {
+    font-size: 13px;
+  }
+
+  .admin-products-table .btn {
+    margin-bottom: 5px;
+  }
+
+  .admin-product-modal .modal-dialog {
+    margin: 10px;
+    min-height: calc(100vh - 20px);
+  }
+
+  .admin-product-modal .modal-content {
+    max-height: calc(100vh - 20px);
+  }
+
+  .admin-product-modal .modal-body {
+    padding: 15px;
+  }
+
+  .product-image-preview img {
+    width: 120px;
+    height: 120px;
+  }
+}

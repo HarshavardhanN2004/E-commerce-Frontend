@@ -1,0 +1,99 @@
+.admin-categories-page {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.categories-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.categories-header h2 {
+  margin: 0;
+  font-weight: 600;
+}
+
+.categories-header p {
+  margin: 5px 0 0;
+  color: #6c757d;
+}
+
+.categories-card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.categories-card .table {
+  margin-bottom: 0;
+}
+
+.categories-card th {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.categories-card td {
+  vertical-align: middle;
+}
+
+.empty-categories {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.empty-categories h5 {
+  margin-bottom: 8px;
+}
+
+.empty-categories p {
+  color: #6c757d;
+  margin-bottom: 20px;
+}
+
+.modal {
+  z-index: 1055;
+}
+
+.modal-backdrop {
+  z-index: 1050;
+}
+
+@media (max-width: 576px) {
+  .categories-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .categories-header .btn {
+    width: 100%;
+  }
+
+  .categories-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .categories-card .card-body {
+    padding: 12px;
+  }
+}
+
+.delete-icon {
+  width: 55px;
+  height: 55px;
+  margin: 0 auto;
+  border: 3px solid #dc3545;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-icon span {
+  font-size: 30px;
+  font-weight: 700;
+  color: #dc3545;
+}

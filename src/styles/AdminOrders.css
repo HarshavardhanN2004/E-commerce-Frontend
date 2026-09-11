@@ -1,0 +1,42 @@
+.admin-orders-page {
+  min-height: calc(100vh - 70px);
+  padding: 40px 0;
+  background-color: #f8f9fa;
+}
+
+.admin-orders-header {
+  margin-bottom: 30px;
+}
+
+.admin-subtitle {
+  margin-bottom: 5px;
+  color: #6c757d;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.admin-orders-header h1 {
+  margin-bottom: 8px;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.admin-description {
+  margin-bottom: 0;
+  color: #6c757d;
+}
+
+.admin-orders-table {
+  background-color: #ffffff;
+  vertical-align: middle;
+}
+
+.admin-orders-table th {
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.admin-orders-table td {
+  vertical-align: middle;
+}
