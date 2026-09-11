@@ -80,55 +80,6 @@ Administrators can:
 
 
 
-##  Project Structure
-
-
-e-commerce-frontend/
-│
-├── public/
-│
-├── src/
-│   │
-│   ├── components/
-│   │   ├── Navbar.jsx
-│   │  
-│   │
-│   ├── pages/
-│   │   ├── Login.jsx
-│   │   ├── Register.jsx
-│   │   ├── Products.jsx
-│   │   ├── Cart.jsx
-│   │   ├── Checkout.jsx
-│   │   ├── Orders.jsx
-│   │   ├── Profile.jsx
-│   │   └── ...
-│   │
-│   ├── features/
-│   │   └── slices/
-│   │       ├── authSlice.js
-│   │       ├── productSlice.js
-│   │       ├── cartSlice.js
-│   │       └── orderSlice.js
-│   │
-│   ├── services/
-│   │   └── api.js
-│   │
-│   ├── styles/
-│   │   ├── Login.css
-│   │   ├── Products.css
-│   │   ├── Cart.css
-│   │   └── ...
-│   │
-│   ├── App.js
-│   └── index.js
-│
-├── .env
-├── package.json
-└── README.md
-
-
-
-
 ##  Frontend Architecture
 
 The application uses React components together with Redux Toolkit for state management.
