@@ -1,70 +1,402 @@
-# Getting Started with Create React App
+#  E-Commerce Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A responsive E-Commerce frontend built using **React.js, Redux Toolkit, Axios,Fetch, Bootstrap, React Hook Form, and Yup**.
 
-## Available Scripts
+The frontend communicates with an ASP.NET Core Web API backend to provide a complete online shopping experience.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+##  Technologies Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* React.js
+* React Router DOM
+* Redux Toolkit
+* Axios
+* Fetch
+* Bootstrap
+* React Hook Form
+* Yup
+* @hookform/resolvers
+* SweetAlert2
+* CSS
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+##  Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+###  User Authentication
 
-### `npm run build`
+* User registration
+* User login
+* JWT token handling
+* Logout
+* Protected routes
+* Role-based navigation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+###  Products
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* View products
+* Search products
+* Filter products
+* View product information
+* Add products to cart
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+###  Shopping Cart
 
-### `npm run eject`
+* View cart
+* Add products
+* Increase quantity
+* Decrease quantity
+* Remove individual items
+* Clear cart
+* View total amount
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+###  Checkout
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* Enter shipping details
+* Review cart items
+* View order totals
+* Place an order
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+###  Orders
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+* View orders
+* View order details
+* View order status
 
-## Learn More
+###  Profile
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* View logged-in user information
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+###  Admin
+Administrators can:
 
-### Code Splitting
+* Add products
+* Edit products
+* Delete products
+* Manage categories
+* View products
+* Manage orders
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+##  Project Structure
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+e-commerce-frontend/
+│
+├── public/
+│
+├── src/
+│   │
+│   ├── components/
+│   │   ├── Navbar.jsx
+│   │  
+│   │
+│   ├── pages/
+│   │   ├── Login.jsx
+│   │   ├── Register.jsx
+│   │   ├── Products.jsx
+│   │   ├── Cart.jsx
+│   │   ├── Checkout.jsx
+│   │   ├── Orders.jsx
+│   │   ├── Profile.jsx
+│   │   └── ...
+│   │
+│   ├── features/
+│   │   └── slices/
+│   │       ├── authSlice.js
+│   │       ├── productSlice.js
+│   │       ├── cartSlice.js
+│   │       └── orderSlice.js
+│   │
+│   ├── services/
+│   │   └── api.js
+│   │
+│   ├── styles/
+│   │   ├── Login.css
+│   │   ├── Products.css
+│   │   ├── Cart.css
+│   │   └── ...
+│   │
+│   ├── App.js
+│   └── index.js
+│
+├── .env
+├── package.json
+└── README.md
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+##  Frontend Architecture
 
-### `npm run build` fails to minify
+The application uses React components together with Redux Toolkit for state management.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+React Page / Component
+        ↓
+Redux Slice
+        ↓
+Axios API Request
+        ↓
+ASP.NET Core Web API
+        ↓
+Response
+        ↓
+Redux Store
+        ↓
+React UI
+
+
+
+
+##  Authentication Flow
+
+
+User Login
+     ↓
+Login API
+     ↓
+Backend validates credentials
+     ↓
+JWT Token returned
+     ↓
+Token stored in localStorage
+     ↓
+Axios sends token with requests
+     ↓
+Protected API access
+
+
+The frontend uses the JWT token to access protected backend endpoints.
+
+
+
+##  Redux State Management
+
+Redux Toolkit is used to manage application-wide state.
+
+Main slices include:
+
+Redux Store
+    │
+    ├── Auth Slice
+    │
+    ├── Product Slice
+    │
+    ├── Cart Slice
+    │
+    └── Order Slice
+
+
+This allows different pages and components to access shared application state.
+
+
+
+##  API Communication
+
+Axios is used to communicate with the backend API.
+
+The API base URL is configured through an environment variable.
+
+Example:
+
+```env
+REACT_APP_API_URL=https://localhost:YOUR_PORT/api
+```
+
+The frontend sends the JWT token with protected requests.
+
+
+
+##  Form Validation
+
+Forms use:
+
+* React Hook Form
+* Yup
+* @hookform/resolvers
+
+Validation is implemented for forms such as:
+
+* Login
+* Registration
+* Product creation
+* Product editing
+* Category forms
+* Checkout
+
+Validation errors are displayed to the user when form submission fails.
+
+
+
+##  UI & Styling
+
+The application uses:
+
+* Bootstrap for responsive layouts
+* Custom CSS for page-specific styling
+* Responsive navigation
+* Responsive product cards
+* Responsive forms
+* Modal dialogs
+* SweetAlert notifications
+
+CSS is maintained in separate files rather than using inline styles.
+
+
+
+##  Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/HarshavardhanN2004/E-Commerce-Backend.git
+```
+
+Navigate to the frontend:
+
+```bash
+cd E-Commerce-Backend/e-commerce-frontend
+```
+
+---
+
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+---
+
+### 3. Configure Environment Variables
+
+Create a `.env` file in the frontend root directory:
+
+```env
+REACT_APP_API_URL=https://localhost:YOUR_PORT/api
+```
+
+Replace `YOUR_PORT` with the port used by the backend API.
+
+---
+
+### 4. Start the Application
+
+```bash
+npm start
+```
+
+The React application will normally run at:
+
+```text
+http://localhost:3000
+```
+
+---
+
+##  Backend Requirement
+
+The frontend requires the **E-Commerce ASP.NET Core Web API** to be running.
+
+The complete application works as:
+
+```text
+React Frontend
+       ↓
+ASP.NET Core Web API
+       ↓
+Entity Framework Core
+       ↓
+SQL Server
+```
+
+---
+
+##  Testing
+
+The frontend can be tested by running:
+
+```bash
+npm start
+```
+
+Then test the following application flows:
+
+```text
+Register
+   ↓
+Login
+   ↓
+Browse Products
+   ↓
+Add to Cart
+   ↓
+Update Cart
+   ↓
+Checkout
+   ↓
+Place Order
+   ↓
+View Orders
+```
+
+Admin flow:
+
+```text
+Admin Login
+     ↓
+Admin Dashboard
+     ↓
+Manage Products
+     ↓
+Manage Categories
+     ↓
+Manage Orders
+```
+
+---
+
+##  Responsive Design
+
+The frontend is designed to work across:
+
+* Desktop
+* Laptop
+* Tablet
+* Mobile devices
+
+Bootstrap's responsive grid system and custom CSS are used to maintain a consistent user experience across screen sizes.
+
+---
+
+##  Security
+
+The frontend implements:
+
+* JWT-based authentication
+* Protected routes
+* Role-based navigation
+* Token-based API requests
+* Client-side form validation
+* Secure handling of authentication state
+
+
+---
+
+##  Future Enhancements
+
+Possible improvements include:
+
+* Online payment integration
+* Wishlist
+* Product reviews
+* Product ratings
+* Coupon system
+* Advanced filtering
+* Order tracking
+* Improved admin dashboard
+* Cloud deployment
+
+
