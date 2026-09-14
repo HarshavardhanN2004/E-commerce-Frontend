@@ -8,7 +8,7 @@ import Navbar from "../components/Navbar";
 import { fetchCart } from "../features/slices/cartSlice";
 import { placeOrder } from "../features/slices/orderSlice";
 import Swal from "sweetalert2";
-//import "../styles/Checkout.css";
+
 
 const checkoutSchema = yup.object({
   name: yup

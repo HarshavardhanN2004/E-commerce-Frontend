@@ -38,32 +38,18 @@ const schema = yup.object({
 
 const AdminProducts = () => {
   const dispatch = useDispatch();
-
-  // Products and categories
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
-
-  // Loading states
   const [loading, setLoading] = useState(false);
   const [categoryLoading, setCategoryLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [deleting, setDeleting] = useState(false);
-
-  // Error states
   const [error, setError] = useState("");
   const [categoryError, setCategoryError] = useState("");
   const [submitError, setSubmitError] = useState("");
-
-  // Add/Edit modal
   const [showProductModal, setShowProductModal] = useState(false);
-
-  // Product currently being edited
   const [editingProduct, setEditingProduct] = useState(null);
-
-  // Product currently being deleted
   const [deletingProduct, setDeletingProduct] = useState(null);
-
-  // Image states
   const [selectedImage, setSelectedImage] = useState(null);
   const [imagePreview, setImagePreview] = useState("");
 
@@ -87,10 +73,6 @@ const AdminProducts = () => {
       categoryId: "",
     },
   });
-
-  // ==================================================
-  // GET ALL PRODUCTS
-  // ==================================================
 
   const fetchProducts = async () => {
     try {
@@ -119,10 +101,6 @@ const AdminProducts = () => {
     }
   };
 
-  // ==================================================
-  // GET ALL CATEGORIES
-  // ==================================================
-
   const fetchCategories = async () => {
     try {
       setCategoryLoading(true);
@@ -150,18 +128,10 @@ const AdminProducts = () => {
     }
   };
 
-  // ==================================================
-  // LOAD PRODUCTS AND CATEGORIES
-  // ==================================================
-
   useEffect(() => {
     fetchProducts();
     fetchCategories();
   }, []);
-
-  // ==================================================
-  // OPEN ADD PRODUCT MODAL
-  // ==================================================
 
   const openAddModal = () => {
     setEditingProduct(null);
@@ -181,10 +151,6 @@ const AdminProducts = () => {
 
     setShowProductModal(true);
   };
-
-  // ==================================================
-  // OPEN EDIT PRODUCT MODAL
-  // ==================================================
 
   const openEditModal = (product) => {
     setEditingProduct(product);
@@ -212,10 +178,6 @@ const AdminProducts = () => {
     setShowProductModal(true);
   };
 
-  // ==================================================
-  // CLOSE ADD / EDIT MODAL
-  // ==================================================
-
   const closeProductModal = () => {
     setEditingProduct(null);
 
@@ -234,17 +196,11 @@ const AdminProducts = () => {
     setShowProductModal(false);
   };
 
-  // ==================================================
-  // IMAGE CHANGE
-  // ==================================================
-
   const handleImageChange = (event) => {
     const file = event.target.files[0];
 
     if (!file) {
       setSelectedImage(null);
-
-      // Keep existing image while editing
       if (editingProduct?.imagePath) {
         setImagePreview(
           `${API_URL.replace("/api", "")}${editingProduct.imagePath}`
@@ -263,10 +219,6 @@ const AdminProducts = () => {
     setImagePreview(previewUrl);
   };
 
-  // ==================================================
-  // ADD PRODUCT
-  // ==================================================
-
   const handleAddProduct = async (data) => {
     try {
       setSubmitting(true);
@@ -280,7 +232,6 @@ const AdminProducts = () => {
       formData.append("Stock", data.stock);
       formData.append("CategoryId", data.categoryId);
 
-      // Image is optional
       if (selectedImage) {
         formData.append("Image", selectedImage);
       }
@@ -305,15 +256,12 @@ const AdminProducts = () => {
             errorMessage = errorData.message;
           }
         } catch {
-          // Keep default error message
         }
 
         throw new Error(errorMessage);
       }
 
       const newProduct = await response.json();
-
-      // Add new product to table
       setProducts((currentProducts) => [
         ...currentProducts,
         newProduct,
@@ -338,10 +286,6 @@ const AdminProducts = () => {
     }
   };
 
-  // ==================================================
-  // UPDATE PRODUCT
-  // ==================================================
-
   const handleUpdateProduct = async (data) => {
     try {
       setSubmitting(true);
@@ -354,8 +298,6 @@ const AdminProducts = () => {
       formData.append("Price", data.price);
       formData.append("Stock", data.stock);
       formData.append("CategoryId", data.categoryId);
-
-      // Only send image if a new image is selected
       if (selectedImage) {
         formData.append("Image", selectedImage);
       }
@@ -383,15 +325,12 @@ const AdminProducts = () => {
             errorMessage = errorData.message;
           }
         } catch {
-          // Keep default error message
         }
 
         throw new Error(errorMessage);
       }
 
       const updatedProduct = await response.json();
-
-      // Update product in table
       setProducts((currentProducts) =>
         currentProducts.map((product) =>
           product.productId === updatedProduct.productId
@@ -418,10 +357,6 @@ Swal.fire({
     }
   };
 
-  // ==================================================
-  // ADD OR UPDATE PRODUCT
-  // ==================================================
-
   const handleProductSubmit = (data) => {
     if (editingProduct) {
       handleUpdateProduct(data);
@@ -430,27 +365,15 @@ Swal.fire({
     }
   };
 
-  // ==================================================
-  // OPEN DELETE MODAL
-  // ==================================================
-
   const openDeleteModal = (product) => {
     setDeletingProduct(product);
     setError("");
   };
 
-  // ==================================================
-  // CLOSE DELETE MODAL
-  // ==================================================
-
   const closeDeleteModal = () => {
     setDeletingProduct(null);
     setError("");
   };
-
-  // ==================================================
-  // DELETE PRODUCT
-  // ==================================================
 
   const handleDeleteProduct = async () => {
     if (!deletingProduct) {
@@ -460,13 +383,9 @@ Swal.fire({
     try {
       setDeleting(true);
       setError("");
-
-      // Keep using Redux for delete
       await dispatch(
         removeProduct(deletingProduct.productId)
       ).unwrap();
-
-      // Remove product from table
       setProducts((currentProducts) =>
         currentProducts.filter(
           (product) =>
@@ -498,9 +417,6 @@ Swal.fire({
     }
   };
 
-  // ==================================================
-  // IMAGE URL
-  // ==================================================
 
   const getImageUrl = (imagePath) => {
     if (!imagePath) {
@@ -510,26 +426,15 @@ Swal.fire({
     return `${API_URL.replace("/api", "")}${imagePath}`;
   };
 
-  // ==================================================
-  // PAGE UI
-  // ==================================================
-
   return (
     <>
       <Navbar />
 
       <main className="admin-products-page">
         <div className="container">
-
-          {/* ==============================
-              PAGE HEADER
-              ============================== */}
-
           <div className="admin-products-header">
-
             <div>
               <h1>Manage Products</h1>
-
               <p>
                 View and manage all products.
               </p>
@@ -544,22 +449,11 @@ Swal.fire({
             </button>
 
           </div>
-
-
-          {/* ==============================
-              PRODUCTS ERROR
-              ============================== */}
-
           {error && !deletingProduct && (
             <div className="alert alert-danger">
               {error}
             </div>
           )}
-
-
-          {/* ==============================
-              PRODUCTS LOADING
-              ============================== */}
 
           {loading && (
             <div className="text-center mt-4">
@@ -579,11 +473,6 @@ Swal.fire({
 
             </div>
           )}
-
-
-          {/* ==============================
-              PRODUCTS TABLE
-              ============================== */}
 
           {!loading && (
             <div className="table-responsive">
@@ -607,83 +496,30 @@ Swal.fire({
                   {products.length === 0 ? (
 
                     <tr>
-                      <td
-                        colSpan="7"
-                        className="text-center"
-                      >
-                        No products found.
-                      </td>
+                      <td colSpan="7" className="text-center"> No products found. </td>
                     </tr>
-
                   ) : (
-
                     products.map((product) => (
-
                       <tr key={product.productId}>
+                        <td> {product.productId}</td>
 
                         <td>
-                          {product.productId}
-                        </td>
-
-
-                        {/* IMAGE */}
-
-                        <td>
-
                           {product.imagePath ? (
-
                             <img
                               src={getImageUrl(product.imagePath)}
                               alt={product.productName}
                               className="admin-product-image"
                             />
-
                           ) : (
-
-                            <span>
-                              No image
-                            </span>
-
+                            <span>  No image</span>
                           )}
 
                         </td>
-
-
-                        {/* PRODUCT */}
-
+                        <td> {product.productName} </td>
+                        <td> {product.categoryName}</td>
+                        <td> ₹ {Number(product.price).toFixed(2)} </td>
+                        <td> {product.stock}</td>
                         <td>
-                          {product.productName}
-                        </td>
-
-
-                        {/* CATEGORY */}
-
-                        <td>
-                          {product.categoryName}
-                        </td>
-
-
-                        {/* PRICE */}
-
-                        <td>
-                          ₹
-                          {Number(product.price).toFixed(2)}
-                        </td>
-
-
-                        {/* STOCK */}
-
-                        <td>
-                          {product.stock}
-                        </td>
-
-
-                        {/* ACTIONS */}
-
-                        <td>
-
-                          {/* EDIT BUTTON */}
-
                           <button
                             type="button"
                             className="btn btn-sm btn-outline-primary me-2"
@@ -693,10 +529,6 @@ Swal.fire({
                           >
                             Edit
                           </button>
-
-
-                          {/* DELETE BUTTON */}
-
                           <button
                             type="button"
                             className="btn btn-sm btn-outline-danger"
@@ -725,29 +557,16 @@ Swal.fire({
         </div>
       </main>
 
-
-      {/* ==================================================
-          ADD / EDIT PRODUCT MODAL
-          ================================================== */}
-
       {showProductModal && (
         <>
-
           <div
             className="modal fade show admin-product-modal"
             tabIndex="-1"
             role="dialog"
             aria-modal="true"
           >
-
             <div className="modal-dialog modal-lg modal-dialog-centered">
-
               <div className="modal-content">
-
-                {/* ==============================
-                    MODAL HEADER
-                    ============================== */}
-
                 <div className="modal-header">
 
                   <h5 className="modal-title product-modal-title">
@@ -767,22 +586,10 @@ Swal.fire({
                   ></button>
 
                 </div>
-
-
-                {/* ==============================
-                    PRODUCT FORM
-                    ============================== */}
-
                 <form
                   onSubmit={handleSubmit(handleProductSubmit)}
                 >
-
-                  {/* MODAL BODY */}
-
                   <div className="modal-body">
-
-                    {/* PRODUCT NAME */}
-
                     <div className="mb-3">
 
                       <label className="form-label">
@@ -802,16 +609,8 @@ Swal.fire({
                       )}
 
                     </div>
-
-
-                    {/* DESCRIPTION */}
-
                     <div className="mb-3">
-
-                      <label className="form-label">
-                        Description
-                      </label>
-
+                      <label className="form-label"> Description  </label>
                       <textarea
                         className="form-control"
                         rows="4"
@@ -825,15 +624,8 @@ Swal.fire({
                       )}
 
                     </div>
-
-
-                    {/* PRICE */}
-
                     <div className="mb-3">
-
-                      <label className="form-label">
-                        Price
-                      </label>
+                      <label className="form-label"> Price </label>
 
                       <input
                         type="number"
@@ -849,16 +641,8 @@ Swal.fire({
                       )}
 
                     </div>
-
-
-                    {/* STOCK */}
-
                     <div className="mb-3">
-
-                      <label className="form-label">
-                        Stock
-                      </label>
-
+                      <label className="form-label"> Stock</label>
                       <input
                         type="number"
                         className="form-control"
@@ -872,10 +656,6 @@ Swal.fire({
                       )}
 
                     </div>
-
-
-                    {/* CATEGORY */}
-
                     <div className="mb-3">
 
                       <label className="form-label">
@@ -921,19 +701,11 @@ Swal.fire({
                       )}
 
                     </div>
-
-
-                    {/* CATEGORY ERROR */}
-
                     {categoryError && (
                       <div className="alert alert-danger">
                         {categoryError}
                       </div>
                     )}
-
-
-                    {/* PRODUCT IMAGE */}
-
                     <div className="mb-3">
 
                       <label className="form-label">
@@ -953,9 +725,6 @@ Swal.fire({
 
                     </div>
 
-
-                    {/* IMAGE PREVIEW */}
-
                     {imagePreview && (
 
                       <div className="product-image-preview mb-3">
@@ -972,10 +741,6 @@ Swal.fire({
                       </div>
 
                     )}
-
-
-                    {/* SUBMIT ERROR */}
-
                     {submitError && (
                       <div className="alert alert-danger">
                         {submitError}
@@ -983,12 +748,6 @@ Swal.fire({
                     )}
 
                   </div>
-
-
-                  {/* ==============================
-                      MODAL FOOTER
-                      ============================== */}
-
                   <div className="modal-footer">
 
                     <button
@@ -1027,29 +786,15 @@ Swal.fire({
                       )}
 
                     </button>
-
                   </div>
-
                 </form>
-
               </div>
-
             </div>
-
           </div>
-
-
-          {/* MODAL BACKDROP */}
-
           <div className="modal-backdrop fade show"></div>
 
         </>
       )}
-
-
-      {/* ==================================================
-          DELETE CONFIRMATION MODAL
-          ================================================== */}
 
       {deletingProduct && (
         <>
@@ -1060,20 +805,10 @@ Swal.fire({
             role="dialog"
             aria-modal="true"
           >
-
             <div className="modal-dialog modal-dialog-centered">
-
               <div className="modal-content">
-
-                {/* ==============================
-                    DELETE MODAL HEADER
-                    ============================== */}
-
                 <div className="modal-header">
-
-                  <h5 className="modal-title">
-                    Delete Product
-                  </h5>
+                  <h5 className="modal-title">  Delete Product </h5>
 
                   <button
                     type="button"
@@ -1084,14 +819,7 @@ Swal.fire({
                   ></button>
 
                 </div>
-
-
-                {/* ==============================
-                    DELETE MODAL BODY
-                    ============================== */}
-
                 <div className="modal-body text-center">
-
                   <div className="delete-product-icon">
                     <span>!</span>
                   </div>
@@ -1107,17 +835,11 @@ Swal.fire({
                     <strong>
                       {deletingProduct.productName}
                     </strong>
-
                     .
-
                   </p>
-
                   <p className="text-danger mb-0">
                     This action cannot be undone.
                   </p>
-
-
-                  {/* DELETE ERROR */}
 
                   {error && (
                     <div className="alert alert-danger mt-3">
@@ -1126,12 +848,6 @@ Swal.fire({
                   )}
 
                 </div>
-
-
-                {/* ==============================
-                    DELETE MODAL FOOTER
-                    ============================== */}
-
                 <div className="modal-footer justify-content-center">
 
                   <button
@@ -1168,22 +884,12 @@ Swal.fire({
                       "Yes, Delete"
 
                     )}
-
                   </button>
-
                 </div>
-
               </div>
-
             </div>
-
           </div>
-
-
-          {/* DELETE MODAL BACKDROP */}
-
           <div className="modal-backdrop fade show"></div>
-
         </>
       )}
 

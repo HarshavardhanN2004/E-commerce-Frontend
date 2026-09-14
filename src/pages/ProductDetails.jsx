@@ -117,8 +117,6 @@ const ProductDetails = () => {
           </button>
 
           <div className="product-details-card">
-
-            {/* Product Image */}
             <div className="product-details-image-section">
               {product.imagePath ? (
                 <img
@@ -132,8 +130,6 @@ const ProductDetails = () => {
                 </div>
               )}
             </div>
-
-            {/* Product Information */}
             <div className="product-details-content">
 
               <span className="product-details-category">

@@ -7,10 +7,6 @@ const Home = () => {
 
   return (
     <div className="home-page">
-
-      {/* =========================
-          Navbar
-      ========================= */}
       <nav className="home-navbar">
         <div className="container home-navbar-container">
 
@@ -39,11 +35,6 @@ const Home = () => {
 
         </div>
       </nav>
-
-
-      {/* =========================
-          Hero Section
-      ========================= */}
       <section className="home-hero">
 
         <div className="container">
@@ -91,9 +82,6 @@ const Home = () => {
               </div>
 
             </div>
-
-
-            {/* Right Shopping Illustration */}
             <div className="col-lg-6">
 
               <div className="hero-shopping-area">
@@ -135,11 +123,6 @@ const Home = () => {
         </div>
 
       </section>
-
-
-      {/* =========================
-          Features Section
-      ========================= */}
       <section className="features-section">
 
         <div className="container">
@@ -227,11 +210,6 @@ const Home = () => {
         </div>
 
       </section>
-
-
-      {/* =========================
-          Categories Section
-      ========================= */}
       <section className="categories-section">
 
         <div className="container">
@@ -295,11 +273,6 @@ const Home = () => {
         </div>
 
       </section>
-
-
-      {/* =========================
-          Call To Action
-      ========================= */}
       <section className="cta-section">
 
         <div className="container">
@@ -332,11 +305,6 @@ const Home = () => {
         </div>
 
       </section>
-
-
-      {/* =========================
-          Footer
-      ========================= */}
       <footer className="home-footer">
 
         <div className="container">

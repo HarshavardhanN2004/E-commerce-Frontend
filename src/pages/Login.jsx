@@ -42,11 +42,7 @@ const Login = () => {
 
     try {
       const response = await loginUser(data);
-
-      // Store login details in Redux and localStorage
       dispatch(loginSuccess(response));
-
-      // Show login successful toast
       Swal.fire({
         toast: true,
         position: "top-end",
@@ -56,7 +52,6 @@ const Login = () => {
         timer: 2000,
         timerProgressBar: true,
       }).then(() => {
-        // Navigate based on user role
         if (response.role === "Admin") {
           navigate("/admin");
         } else if (response.role === "Customer") {
@@ -96,8 +91,6 @@ const Login = () => {
         )}
 
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
-
-          {/* Email */}
           <div className="mb-3">
             <label
               htmlFor="email"
@@ -122,8 +115,6 @@ const Login = () => {
               </div>
             )}
           </div>
-
-          {/* Password */}
           <div className="mb-4">
             <label
               htmlFor="password"
@@ -149,7 +140,6 @@ const Login = () => {
             )}
           </div>
 
-          {/* Login Button */}
           <button
             type="submit"
             className="btn btn-primary w-100 login-button"
@@ -169,8 +159,6 @@ const Login = () => {
             )}
           </button>
         </form>
-
-        {/* Register Link */}
         <div className="login-footer">
           <p>
             Don't have an account?{" "}

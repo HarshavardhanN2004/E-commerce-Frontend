@@ -23,7 +23,6 @@ const Products = () => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  // Get unique categories from products
   const categories = [
     ...new Map(
       products.map((product) => [
@@ -36,7 +35,6 @@ const Products = () => {
     ).values(),
   ];
 
-  // Search + Category Filter
   const filteredProducts = products.filter((product) => {
     const search = searchTerm.toLowerCase();
 
@@ -88,8 +86,6 @@ const Products = () => {
 
       <main className="products-page">
         <div className="container">
-
-          {/* Products Header */}
           <div className="products-header">
             <div>
               <p className="products-subtitle">
@@ -114,8 +110,6 @@ const Products = () => {
               </button>
             )}
           </div>
-
-          {/* Search and Category Filter */}
           <div className="products-toolbar">
 
             <div className="search-box">
@@ -157,8 +151,6 @@ const Products = () => {
               {filteredProducts.length} products
             </span>
           </div>
-
-          {/* Loading */}
           {loading && (
             <div className="products-loading">
               <div
@@ -175,15 +167,11 @@ const Products = () => {
               </p>
             </div>
           )}
-
-          {/* Error */}
           {error && (
             <div className="alert alert-danger">
               {error}
             </div>
           )}
-
-          {/* No Products */}
           {!loading &&
             !error &&
             filteredProducts.length === 0 && (
@@ -204,8 +192,6 @@ const Products = () => {
 
               </div>
             )}
-
-          {/* Product List */}
           {!loading &&
             !error &&
             filteredProducts.length > 0 && (
@@ -235,8 +221,6 @@ const Products = () => {
                         )}
 
                       </div>
-
-                      {/* Product Content */}
                       <div className="product-content">
 
                         <span className="product-type">
@@ -268,8 +252,6 @@ const Products = () => {
                         <button  className="btn btn-outline-primary w-100 mt-3"  onClick={() => navigate(`/products/${product.productId}`)}>
                           View Details
                         </button>
-
-                        {/* Add To Cart */}
                         {role === "Customer" && (
                           <button
                             className="btn btn-primary w-100 mt-3"
