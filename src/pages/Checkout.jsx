@@ -82,20 +82,14 @@ const Checkout = () => {
 
       <main className="checkout-page">
         <div className="container">
-
           <div className="checkout-loading">
-            <div
-              className="spinner-border text-primary"
-              role="status"
-            >
+            <div className="spinner-border text-primary" role="status">
               <span className="visually-hidden">
                 Loading...
               </span>
             </div>
-
             <p>Loading your checkout...</p>
           </div>
-
         </div>
       </main>
     </>
@@ -108,7 +102,6 @@ const Checkout = () => {
         <Navbar />
         <main className="checkout-page">
           <div className="container">
-
             <div className="empty-checkout">
               <div className="empty-checkout-icon">
                 🛒
@@ -128,12 +121,10 @@ const Checkout = () => {
       <Navbar />
       <main className="checkout-page">
         <div className="container">
-
           <div className="checkout-header">
             <h1>Checkout</h1>
             <p className="checkout-description"> Enter your delivery details to place your order. </p>
           </div>
-
           <div className="checkout-container">
             <div className="checkout-form-card">
               <h4>Delivery Information</h4>

@@ -20,9 +20,7 @@ const AdminOrders = () => {
 
       const response = await fetch(`${API_URL}/Orders`, {
         method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}`,},
       });
 
       if (!response.ok) {
@@ -71,33 +69,20 @@ const AdminOrders = () => {
 
       <main className="admin-orders-page">
         <div className="container">
-
           <div className="admin-orders-header">
             <div>
               <p className="admin-subtitle">Admin Dashboard</p>
-
               <h1>Manage Orders</h1>
-
-              <p className="admin-description">
-                View and manage customer orders.
-              </p>
+              <p className="admin-description"> View and manage customer orders. </p>
             </div>
           </div>
 
           {loading && (
             <div className="text-center mt-4">
-              <div
-                className="spinner-border text-primary"
-                role="status"
-              >
-                <span className="visually-hidden">
-                  Loading...
-                </span>
+              <div className="spinner-border text-primary" role="status">
+                <span className="visually-hidden"> Loading... </span>
               </div>
-
-              <p className="mt-2">
-                Loading orders...
-              </p>
+              <p className="mt-2"> Loading orders... </p>
             </div>
           )}
 
@@ -126,60 +111,29 @@ const AdminOrders = () => {
                 <tbody>
                   {orders.length === 0 ? (
                     <tr>
-                      <td
-                        colSpan="7"
-                        className="text-center"
-                      >
-                        No orders found.
-                      </td>
+                      <td colSpan="7" className="text-center"> No orders found. </td>
                     </tr>
                   ) : (
                     orders.map((order) => (
                       <tr key={order.orderId}>
-
-                        <td>
-                          #{order.orderId}
-                        </td>
-
-                        <td>
-                          {order.name}
-                        </td>
-
-                        <td>
-                          {new Date(
-                            order.orderDate
-                          ).toLocaleDateString()}
-                        </td>
-
-                        <td>
-                          {order.orderItems.length}
-                        </td>
-
-                        <td>
-                          ₹{Number(order.grandTotal).toFixed(2)}
-                        </td>
-
-                        <td>
-                         <span className={`badge ${getStatusBadgeClass(order.status)}`}>
-                        {order.status}
-                        </span>
-                        </td>
-
+                        <td> #{order.orderId} </td>
+                        <td> {order.name} </td>
+                        <td> {new Date(order.orderDate).toLocaleDateString()}</td>
+                        <td> {order.orderItems.length}</td>
+                        <td> ₹{Number(order.grandTotal).toFixed(2)} </td>
+                        <td> <span className={`badge ${getStatusBadgeClass(order.status)}`}>{order.status} </span> </td>
                         <td>
                          <button className="btn btn-sm btn-outline-primary" onClick={() => navigate(`/admin/orders/${order.orderId}`)}>
                         View
                         </button>
                         </td>
-
                       </tr>
                     ))
                   )}
                 </tbody>
-
               </table>
             </div>
           )}
-
         </div>
       </main>
     </>

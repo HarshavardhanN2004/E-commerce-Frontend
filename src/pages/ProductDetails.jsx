@@ -10,9 +10,7 @@ const ProductDetails = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const { role } = useSelector((state) => state.auth);
-
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -22,9 +20,7 @@ const ProductDetails = () => {
       try {
         setLoading(true);
         setError("");
-
         const data = await getProductById(productId);
-
         setProduct(data);
       } catch (error) {
         setError(
@@ -62,15 +58,11 @@ const ProductDetails = () => {
         <main className="product-details-page">
           <div className="container">
             <div className="product-details-loading">
-              <div
-                className="spinner-border text-primary"
-                role="status"
-              >
+              <div  className="spinner-border text-primary" role="status">
                 <span className="visually-hidden">
                   Loading...
                 </span>
               </div>
-
               <p>Loading product details...</p>
             </div>
           </div>
@@ -89,13 +81,7 @@ const ProductDetails = () => {
             <div className="alert alert-danger">
               {error || "Product not found."}
             </div>
-
-            <button
-              className="btn btn-primary"
-              onClick={() => navigate("/products")}
-            >
-              Back to Products
-            </button>
+            <button className="btn btn-primary" onClick={() => navigate("/products")} >Back to Products </button>
           </div>
         </main>
       </>
@@ -109,11 +95,7 @@ const ProductDetails = () => {
       <main className="product-details-page">
         <div className="container">
 
-          <button
-            className="btn btn-outline-secondary mb-4"
-            onClick={() => navigate("/products")}
-          >
-            ← Back to Products
+          <button className="btn btn-outline-secondary mb-4" onClick={() => navigate("/products")}> ← Back to Products
           </button>
 
           <div className="product-details-card">
@@ -131,22 +113,10 @@ const ProductDetails = () => {
               )}
             </div>
             <div className="product-details-content">
-
-              <span className="product-details-category">
-                {product.categoryName}
-              </span>
-
-              <h1 className="product-details-name">
-                {product.productName}
-              </h1>
-
-              <p className="product-details-description">
-                {product.description}
-              </p>
-
-              <div className="product-details-price">
-                ₹{Number(product.price).toFixed(2)}
-              </div>
+              <span className="product-details-category"> {product.categoryName}</span>
+              <h1 className="product-details-name"> {product.productName}</h1>
+              <p className="product-details-description"> {product.description}</p>
+              <div className="product-details-price"> ₹{Number(product.price).toFixed(2)} </div>
 
               <div className="product-details-stock">
                 {product.stock > 0 ? (
@@ -161,17 +131,9 @@ const ProductDetails = () => {
               </div>
 
               {role === "Customer" && (
-                <button
-                  className="btn btn-primary product-details-cart-button"
-                  disabled={product.stock <= 0}
-                  onClick={handleAddToCart}
-                >
-                  {product.stock > 0
-                    ? "Add to Cart"
-                    : "Out of Stock"}
-                </button>
+                <button className="btn btn-primary product-details-cart-button" disabled={product.stock <= 0} onClick={handleAddToCart}>
+                  {product.stock > 0 ? "Add to Cart" : "Out of Stock"} </button>
               )}
-
             </div>
           </div>
         </div>

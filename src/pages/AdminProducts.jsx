@@ -81,9 +81,7 @@ const AdminProducts = () => {
 
       const response = await fetch(`${API_URL}/Products`, {
         method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}`,},
       });
 
       if (!response.ok) {
@@ -108,17 +106,13 @@ const AdminProducts = () => {
 
       const response = await fetch(`${API_URL}/Categories`, {
         method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}`,},
       });
 
       if (!response.ok) {
         throw new Error("Failed to fetch categories.");
       }
-
       const data = await response.json();
-
       setCategories(data);
     } catch (error) {
       console.error("Error fetching categories:", error);
@@ -148,7 +142,6 @@ const AdminProducts = () => {
     setImagePreview("");
     setSubmitError("");
     setCategoryError("");
-
     setShowProductModal(true);
   };
 
@@ -168,13 +161,10 @@ const AdminProducts = () => {
     setCategoryError("");
 
     if (product.imagePath) {
-      setImagePreview(
-        `${API_URL.replace("/api", "")}${product.imagePath}`
-      );
+      setImagePreview(`${API_URL.replace("/api", "")}${product.imagePath}`);
     } else {
       setImagePreview("");
     }
-
     setShowProductModal(true);
   };
 
@@ -192,7 +182,6 @@ const AdminProducts = () => {
     setSelectedImage(null);
     setImagePreview("");
     setSubmitError("");
-
     setShowProductModal(false);
   };
 
@@ -202,20 +191,14 @@ const AdminProducts = () => {
     if (!file) {
       setSelectedImage(null);
       if (editingProduct?.imagePath) {
-        setImagePreview(
-          `${API_URL.replace("/api", "")}${editingProduct.imagePath}`
-        );
+        setImagePreview(`${API_URL.replace("/api", "")}${editingProduct.imagePath}`);
       } else {
         setImagePreview("");
       }
-
       return;
     }
-
     setSelectedImage(file);
-
     const previewUrl = URL.createObjectURL(file);
-
     setImagePreview(previewUrl);
   };
 
@@ -225,7 +208,6 @@ const AdminProducts = () => {
       setSubmitError("");
 
       const formData = new FormData();
-
       formData.append("ProductName", data.productName);
       formData.append("Description", data.description);
       formData.append("Price", data.price);
@@ -238,9 +220,7 @@ const AdminProducts = () => {
 
       const response = await fetch(`${API_URL}/Products`, {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}`,},
         body: formData,
       });
 
@@ -249,7 +229,6 @@ const AdminProducts = () => {
 
         try {
           const errorData = await response.json();
-
           if (typeof errorData === "string") {
             errorMessage = errorData;
           } else if (errorData?.message) {
@@ -257,7 +236,6 @@ const AdminProducts = () => {
           }
         } catch {
         }
-
         throw new Error(errorMessage);
       }
 
@@ -392,7 +370,6 @@ Swal.fire({
             product.productId !== deletingProduct.productId
         )
       );
-
       closeDeleteModal();
 
      Swal.fire({
@@ -406,7 +383,6 @@ Swal.fire({
 });
     } catch (error) {
       console.error("Error deleting product:", error);
-
       setError(
         typeof error === "string"
           ? error
@@ -422,32 +398,20 @@ Swal.fire({
     if (!imagePath) {
       return "";
     }
-
     return `${API_URL.replace("/api", "")}${imagePath}`;
   };
 
   return (
     <>
       <Navbar />
-
       <main className="admin-products-page">
         <div className="container">
           <div className="admin-products-header">
             <div>
               <h1>Manage Products</h1>
-              <p>
-                View and manage all products.
-              </p>
+              <p>View and manage all products. </p>
             </div>
-
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={openAddModal}
-            >
-              Add Product
-            </button>
-
+            <button type="button" className="btn btn-primary" onClick={openAddModal}> Add Product</button>
           </div>
           {error && !deletingProduct && (
             <div className="alert alert-danger">
@@ -458,27 +422,18 @@ Swal.fire({
           {loading && (
             <div className="text-center mt-4">
 
-              <div
-                className="spinner-border text-primary"
-                role="status"
-              >
+              <div className="spinner-border text-primary" role="status">
                 <span className="visually-hidden">
                   Loading...
                 </span>
               </div>
-
-              <p className="mt-2">
-                Loading products...
-              </p>
-
+              <p className="mt-2"> Loading products...</p>
             </div>
           )}
 
           {!loading && (
             <div className="table-responsive">
-
               <table className="table table-bordered table-hover admin-products-table">
-
                 <thead>
                   <tr>
                     <th>ID</th>
@@ -494,114 +449,54 @@ Swal.fire({
                 <tbody>
 
                   {products.length === 0 ? (
-
-                    <tr>
-                      <td colSpan="7" className="text-center"> No products found. </td>
-                    </tr>
+                    <tr> <td colSpan="7" className="text-center"> No products found. </td></tr>
                   ) : (
                     products.map((product) => (
                       <tr key={product.productId}>
                         <td> {product.productId}</td>
-
                         <td>
                           {product.imagePath ? (
-                            <img
-                              src={getImageUrl(product.imagePath)}
-                              alt={product.productName}
-                              className="admin-product-image"
-                            />
-                          ) : (
-                            <span>  No image</span>
-                          )}
-
+                            <img src={getImageUrl(product.imagePath)} alt={product.productName} className="admin-product-image"/>
+                          ) : ( <span>  No image</span>)}
                         </td>
                         <td> {product.productName} </td>
                         <td> {product.categoryName}</td>
                         <td> ₹ {Number(product.price).toFixed(2)} </td>
                         <td> {product.stock}</td>
                         <td>
-                          <button
-                            type="button"
-                            className="btn btn-sm btn-outline-primary me-2"
-                            onClick={() =>
-                              openEditModal(product)
-                            }
-                          >
+                          <button type="button" className="btn btn-sm btn-outline-primary me-2" onClick={() =>openEditModal(product)}>
                             Edit
                           </button>
-                          <button
-                            type="button"
-                            className="btn btn-sm btn-outline-danger"
-                            onClick={() =>
-                              openDeleteModal(product)
-                            }
-                          >
+                          <button type="button" className="btn btn-sm btn-outline-danger" onClick={() =>openDeleteModal(product)}>
                             Delete
                           </button>
-
                         </td>
-
                       </tr>
-
                     ))
-
                   )}
-
                 </tbody>
-
               </table>
-
             </div>
           )}
-
         </div>
       </main>
 
       {showProductModal && (
         <>
-          <div
-            className="modal fade show admin-product-modal"
-            tabIndex="-1"
-            role="dialog"
-            aria-modal="true"
-          >
+          <div className="modal fade show admin-product-modal" tabIndex="-1" role="dialog" aria-modal="true">
             <div className="modal-dialog modal-lg modal-dialog-centered">
               <div className="modal-content">
                 <div className="modal-header">
-
                   <h5 className="modal-title product-modal-title">
-
-                    {editingProduct
-                      ? "Edit Product"
-                      : "Add Product"}
-
+                    {editingProduct ? "Edit Product" : "Add Product"}
                   </h5>
-
-                  <button
-                    type="button"
-                    className="btn-close"
-                    onClick={closeProductModal}
-                    disabled={submitting}
-                    aria-label="Close"
-                  ></button>
-
+                  <button type="button" className="btn-close" onClick={closeProductModal} disabled={submitting} aria-label="Close"></button>
                 </div>
-                <form
-                  onSubmit={handleSubmit(handleProductSubmit)}
-                >
+                <form onSubmit={handleSubmit(handleProductSubmit)}>
                   <div className="modal-body">
                     <div className="mb-3">
-
-                      <label className="form-label">
-                        Product Name
-                      </label>
-
-                      <input
-                        type="text"
-                        className="form-control"
-                        {...register("productName")}
-                      />
-
+                      <label className="form-label"> Product Name</label>
+                      <input type="text" className="form-control" {...register("productName")}/>
                       {errors.productName && (
                         <div className="text-danger">
                           {errors.productName.message}
@@ -626,14 +521,7 @@ Swal.fire({
                     </div>
                     <div className="mb-3">
                       <label className="form-label"> Price </label>
-
-                      <input
-                        type="number"
-                        className="form-control"
-                        step="0.01"
-                        {...register("price")}
-                      />
-
+                      <input type="number" className="form-control" step="0.01"{...register("price")}/>
                       {errors.price && (
                         <div className="text-danger">
                           {errors.price.message}
@@ -643,11 +531,7 @@ Swal.fire({
                     </div>
                     <div className="mb-3">
                       <label className="form-label"> Stock</label>
-                      <input
-                        type="number"
-                        className="form-control"
-                        {...register("stock")}
-                      />
+                      <input type="number" className="form-control" {...register("stock")}/>
 
                       {errors.stock && (
                         <div className="text-danger">
@@ -657,41 +541,17 @@ Swal.fire({
 
                     </div>
                     <div className="mb-3">
-
-                      <label className="form-label">
-                        Category
-                      </label>
-
-                      <select
-                        className="form-select"
-                        {...register("categoryId")}
-                      >
-
-                        <option value="">
-                          Select Category
-                        </option>
+                      <label className="form-label"> Category</label>
+                      <select className="form-select" {...register("categoryId")}>
+                        <option value=""> Select Category </option>
 
                         {categoryLoading ? (
-
-                          <option disabled>
-                            Loading categories...
-                          </option>
-
+                          <option disabled> Loading categories... </option>
                         ) : (
-
                           categories.map((category) => (
-
-                            <option
-                              key={category.categoryId}
-                              value={category.categoryId}
-                            >
-                              {category.categoryName}
-                            </option>
-
+                            <option key={category.categoryId} value={category.categoryId}> {category.categoryName} </option>
                           ))
-
                         )}
-
                       </select>
 
                       {errors.categoryId && (
@@ -707,84 +567,35 @@ Swal.fire({
                       </div>
                     )}
                     <div className="mb-3">
-
-                      <label className="form-label">
-                        Product Image
-                      </label>
-
-                      <input
-                        type="file"
-                        className="form-control"
-                        accept="image/*"
-                        onChange={handleImageChange}
-                      />
-
-                      <small className="text-muted">
-                        Image is optional.
-                      </small>
-
+                      <label className="form-label"> Product Image </label>
+                      <input type="file" className="form-control" accept="image/*" onChange={handleImageChange}/>
+                      <small className="text-muted">Image is optional.</small>
                     </div>
 
                     {imagePreview && (
-
                       <div className="product-image-preview mb-3">
-
-                        <p className="mb-2">
-                          Image Preview
-                        </p>
-
-                        <img
-                          src={imagePreview}
-                          alt="Product Preview"
-                        />
-
+                        <p className="mb-2"> Image Preview </p>
+                        <img src={imagePreview} alt="Product Preview"/>
                       </div>
-
                     )}
                     {submitError && (
-                      <div className="alert alert-danger">
-                        {submitError}
-                      </div>
+                      <div className="alert alert-danger">{submitError} </div>
                     )}
 
                   </div>
                   <div className="modal-footer">
-
-                    <button
-                      type="button"
-                      className="btn btn-secondary"
-                      onClick={closeProductModal}
-                      disabled={submitting}
-                    >
+                    <button type="button" className="btn btn-secondary" onClick={closeProductModal} disabled={submitting}>
                       Cancel
                     </button>
 
-                    <button
-                      type="submit"
-                      className="btn btn-primary"
-                      disabled={submitting}
-                    >
-
+                    <button type="submit" className="btn btn-primary" disabled={submitting}>
                       {submitting ? (
-
                         <>
-                          <span
-                            className="spinner-border spinner-border-sm me-2"
-                            role="status"
-                            aria-hidden="true"
-                          ></span>
-
+                          <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
                           Saving...
                         </>
-
-                      ) : (
-
-                        editingProduct
-                          ? "Update Product"
-                          : "Add Product"
-
+                      ) : ( editingProduct ? "Update Product": "Add Product"
                       )}
-
                     </button>
                   </div>
                 </form>
@@ -792,55 +603,28 @@ Swal.fire({
             </div>
           </div>
           <div className="modal-backdrop fade show"></div>
-
         </>
       )}
 
       {deletingProduct && (
         <>
-
-          <div
-            className="modal fade show d-block"
-            tabIndex="-1"
-            role="dialog"
-            aria-modal="true"
-          >
+          <div className="modal fade show d-block" tabIndex="-1" role="dialog" aria-modal="true">
             <div className="modal-dialog modal-dialog-centered">
               <div className="modal-content">
                 <div className="modal-header">
                   <h5 className="modal-title">  Delete Product </h5>
-
-                  <button
-                    type="button"
-                    className="btn-close"
-                    onClick={closeDeleteModal}
-                    disabled={deleting}
-                    aria-label="Close"
-                  ></button>
-
+                  <button type="button" className="btn-close" onClick={closeDeleteModal} disabled={deleting} aria-label="Close" ></button>
                 </div>
                 <div className="modal-body text-center">
                   <div className="delete-product-icon">
                     <span>!</span>
                   </div>
-
-                  <h5 className="mt-3">
-                    Are you sure?
-                  </h5>
-
-                  <p className="text-muted">
-
-                    You are about to delete the product{" "}
-
-                    <strong>
-                      {deletingProduct.productName}
-                    </strong>
+                  <h5 className="mt-3"> Are you sure?</h5>
+                  <p className="text-muted"> You are about to delete the product{" "}
+                    <strong> {deletingProduct.productName} </strong>
                     .
                   </p>
-                  <p className="text-danger mb-0">
-                    This action cannot be undone.
-                  </p>
-
+                  <p className="text-danger mb-0"> This action cannot be undone. </p>
                   {error && (
                     <div className="alert alert-danger mt-3">
                       {error}
@@ -849,41 +633,13 @@ Swal.fire({
 
                 </div>
                 <div className="modal-footer justify-content-center">
-
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    onClick={closeDeleteModal}
-                    disabled={deleting}
-                  >
-                    Cancel
-                  </button>
-
-
-                  <button
-                    type="button"
-                    className="btn btn-danger"
-                    onClick={handleDeleteProduct}
-                    disabled={deleting}
-                  >
-
+                  <button type="button" className="btn btn-secondary" onClick={closeDeleteModal} disabled={deleting}>Cancel</button>
+                  <button type="button" className="btn btn-danger" onClick={handleDeleteProduct} disabled={deleting}>
                     {deleting ? (
-
                       <>
-                        <span
-                          className="spinner-border spinner-border-sm me-2"
-                          role="status"
-                          aria-hidden="true"
-                        ></span>
-
-                        Deleting...
+                        <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Deleting...
                       </>
-
-                    ) : (
-
-                      "Yes, Delete"
-
-                    )}
+                    ) : ( "Yes, Delete" )}
                   </button>
                 </div>
               </div>

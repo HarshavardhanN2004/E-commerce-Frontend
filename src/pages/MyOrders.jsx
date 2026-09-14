@@ -8,7 +8,6 @@ import "../styles/MyOrders.css";
 const MyOrders = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const { orders, loading, error } = useSelector(
     (state) => state.order
   );
@@ -45,15 +44,8 @@ const MyOrders = () => {
         <main className="my-orders-page">
           <div className="container text-center">
             <h4>Unable to load orders</h4>
-
             <p>{error}</p>
-
-            <button
-              className="btn btn-primary"
-              onClick={() => dispatch(fetchMyOrders())}
-            >
-              Try Again
-            </button>
+            <button className="btn btn-primary" onClick={() => dispatch(fetchMyOrders())}> Try Again </button>
           </div>
         </main>
       </>
@@ -75,97 +67,46 @@ const MyOrders = () => {
           {orders.length === 0 ? (
             <div className="no-orders text-center">
               <h4>No Orders Yet</h4>
-
-              <p>
-                You haven't placed any orders yet.
-              </p>
-
-              <button
-                className="btn btn-primary"
-                onClick={() => navigate("/products")}
-              >
-                Start Shopping
-              </button>
+              <p>  You haven't placed any orders yet. </p>
+              <button className="btn btn-primary" onClick={() => navigate("/products")}> Start Shopping</button>
             </div>
           ) : (
             <div className="orders-list">
 
               {orders.map((order) => (
-                <div
-                  className="order-card"
-                  key={order.orderId}
-                >
-
+                <div className="order-card" key={order.orderId} >
                   <div className="order-card-header">
                     <div>
-                      <h5>
-                        Order #{order.orderId}
-                      </h5>
-
-                      <p>
-                        {new Date(
-                          order.orderDate
-                        ).toLocaleDateString()}
-                      </p>
+                      <h5> Order #{order.orderId} </h5>
+                      <p> {new Date(order.orderDate).toLocaleDateString()} </p>
                     </div>
-
-                    <span
-                      className={`order-status ${order.status.toLowerCase()}`}
-                    >
-                      {order.status}
-                    </span>
+                    <span className={`order-status ${order.status.toLowerCase()}`}>{order.status}</span>
                   </div>
 
                   <div className="order-card-body">
-
-                    <div>
-                      <strong>Items</strong>
-
-                      <p>
-                        {order.orderItems?.length || 0} item(s)
-                      </p>
+                    <div> <strong>Items</strong>
+                      <p> {order.orderItems?.length || 0} item(s)</p>
                     </div>
 
-                    <div>
-                      <strong>Total Amount</strong>
-
-                      <p>
-                        ₹
-                        {Number(
-                          order.grandTotal
-                        ).toFixed(2)}
-                      </p>
+                    <div> <strong>Total Amount</strong>
+                      <p> ₹ {Number(order.grandTotal ).toFixed(2)} </p>
                     </div>
 
-                    <div>
+                    <div> 
                       <strong>Payment</strong>
-
                       <p>{order.paymentMethod}</p>
                     </div>
 
                   </div>
-
                   <div className="order-card-footer">
-
-                    <button
-                      className="btn btn-outline-primary"
-                      onClick={() =>
-                        navigate(
-                          `/orders/${order.orderId}`
-                        )
-                      }
-                    >
+                    <button className="btn btn-outline-primary" onClick={() => navigate(`/orders/${order.orderId}`) } >
                       View Details
                     </button>
-
                   </div>
-
                 </div>
               ))}
-
             </div>
           )}
-
         </div>
       </main>
     </>

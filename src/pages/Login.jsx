@@ -25,7 +25,6 @@ const loginSchema = yup.object({
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const [serverError, setServerError] = useState("");
 
   const {
@@ -70,39 +69,21 @@ const Login = () => {
   return (
     <div className="login-page">
       <div className="login-card">
-
         <div className="login-header">
           <div className="login-logo">S</div>
-
           <h1>E-Commerce</h1>
-
-          <p>
-            Welcome back! Sign in to continue shopping.
-          </p>
+          <p> Welcome back! Sign in to continue shopping. </p>
         </div>
 
         {serverError && (
-          <div
-            className="alert alert-danger login-error"
-            role="alert"
-          >
-            {serverError}
-          </div>
+          <div className="alert alert-danger login-error" role="alert">{serverError} </div>
         )}
 
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <div className="mb-3">
-            <label
-              htmlFor="email"
-              className="form-label"
-            >
-              Email Address
-            </label>
+            <label htmlFor="email" className="form-label"> Email Address </label>
 
-            <input
-              type="email"
-              id="email"
-              placeholder="Enter your email"
+            <input type="email" id="email" placeholder="Enter your email"
               className={`form-control ${
                 errors.email ? "is-invalid" : ""
               }`}
@@ -116,17 +97,9 @@ const Login = () => {
             )}
           </div>
           <div className="mb-4">
-            <label
-              htmlFor="password"
-              className="form-label"
-            >
-              Password
-            </label>
+            <label htmlFor="password" className="form-label"> Password </label>
 
-            <input
-              type="password"
-              id="password"
-              placeholder="Enter your password"
+            <input type="password" id="password" placeholder="Enter your password"
               className={`form-control ${
                 errors.password ? "is-invalid" : ""
               }`}
@@ -140,18 +113,10 @@ const Login = () => {
             )}
           </div>
 
-          <button
-            type="submit"
-            className="btn btn-primary w-100 login-button"
-            disabled={isSubmitting}
-          >
+          <button type="submit" className="btn btn-primary w-100 login-button" disabled={isSubmitting}>
             {isSubmitting ? (
               <>
-                <span
-                  className="spinner-border spinner-border-sm me-2"
-                  aria-hidden="true"
-                ></span>
-
+                <span className="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
                 Logging in...
               </>
             ) : (
@@ -160,14 +125,10 @@ const Login = () => {
           </button>
         </form>
         <div className="login-footer">
-          <p>
-            Don't have an account?{" "}
-            <span onClick={() => navigate("/register")}>
-              Create Account
-            </span>
+          <p> Don't have an account?{" "}
+            <span onClick={() => navigate("/register")}>Create Account </span>
           </p>
         </div>
-
       </div>
     </div>
   );

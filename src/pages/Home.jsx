@@ -9,42 +9,20 @@ const Home = () => {
     <div className="home-page">
       <nav className="home-navbar">
         <div className="container home-navbar-container">
-
-          <button
-            className="home-logo"
-            onClick={() => navigate("/")}
-          >
-            🛍 E-Commerce
-          </button>
+          <button className="home-logo" onClick={() => navigate("/")} >🛍 E-Commerce</button>
 
           <div className="home-nav-buttons">
-            <button
-              className="home-login-btn"
-              onClick={() => navigate("/login")}
-            >
-              Login
-            </button>
-
-            <button
-              className="home-register-btn"
-              onClick={() => navigate("/register")}
-            >
-              Register
-            </button>
+            <button className="home-login-btn" onClick={() => navigate("/login")}> Login  </button>
+            <button className="home-register-btn" onClick={() => navigate("/register")}> Register </button>
           </div>
 
         </div>
       </nav>
       <section className="home-hero">
-
         <div className="container">
           <div className="row align-items-center">
-
-            {/* Left Content */}
             <div className="col-lg-6">
-
               <div className="hero-content">
-
                 <span className="hero-small-text">
                   ✨ YOUR ONE-STOP SHOPPING DESTINATION
                 </span>
@@ -62,32 +40,15 @@ const Home = () => {
                 </p>
 
                 <div className="hero-buttons">
-
-                  <button
-                    className="shop-now-btn"
-                    onClick={() => navigate("/login")}
-                  >
-                    Shop Now →
-                  </button>
-
-                  <button
-                    className="explore-btn"
-                    onClick={() => navigate("/register")}
-                  >
-                    Create Account
-                  </button>
-
+                  <button className="shop-now-btn" onClick={() => navigate("/login")}> Shop Now →</button>
+                  <button className="explore-btn" onClick={() => navigate("/register")}> Create Account</button>
                 </div>
-
               </div>
-
             </div>
+            
             <div className="col-lg-6">
-
               <div className="hero-shopping-area">
-
                 <div className="shopping-circle"></div>
-
                 <div className="shopping-card card-one">
                   <span>📱</span>
                   <p>Electronics</p>
@@ -114,25 +75,18 @@ const Home = () => {
                 <div className="floating-box box-two">
                   🛒
                 </div>
-
               </div>
-
             </div>
-
           </div>
         </div>
 
       </section>
       <section className="features-section">
-
         <div className="container">
-
           <div className="section-heading">
             <span>WHY CHOOSE US</span>
             <h2>Everything You Need for Better Shopping</h2>
-            <p>
-              We make online shopping simple, convenient and enjoyable.
-            </p>
+            <p> We make online shopping simple, convenient and enjoyable.</p>
           </div>
 
 
@@ -144,13 +98,8 @@ const Home = () => {
                 <div className="feature-icon">
                   🚚
                 </div>
-
                 <h3>Fast Delivery</h3>
-
-                <p>
-                  Get your favorite products delivered quickly and safely.
-                </p>
-
+                <p>Get your favorite products delivered quickly and safely. </p>
               </div>
             </div>
 
@@ -161,13 +110,8 @@ const Home = () => {
                 <div className="feature-icon">
                   🔒
                 </div>
-
                 <h3>Secure Shopping</h3>
-
-                <p>
-                  Your account and shopping experience are protected.
-                </p>
-
+                <p> Your account and shopping experience are protected. </p>
               </div>
             </div>
 
@@ -178,13 +122,8 @@ const Home = () => {
                 <div className="feature-icon">
                   💳
                 </div>
-
                 <h3>Easy Checkout</h3>
-
-                <p>
-                  Enjoy a simple and convenient checkout experience.
-                </p>
-
+                <p> Enjoy a simple and convenient checkout experience. </p>
               </div>
             </div>
 
@@ -197,16 +136,10 @@ const Home = () => {
                 </div>
 
                 <h3>Quality Products</h3>
-
-                <p>
-                  Explore products selected to give you great value.
-                </p>
-
+                <p> Explore products selected to give you great value. </p>
               </div>
             </div>
-
           </div>
-
         </div>
 
       </section>
@@ -217,9 +150,7 @@ const Home = () => {
           <div className="section-heading">
             <span>EXPLORE OUR STORE</span>
             <h2>Shop by Category</h2>
-            <p>
-              Find what you're looking for and discover something new.
-            </p>
+            <p> Find what you're looking for and discover something new. </p>
           </div>
 
 
@@ -267,81 +198,47 @@ const Home = () => {
                 <p>Complete your everyday style</p>
               </div>
             </div>
-
           </div>
-
         </div>
 
       </section>
       <section className="cta-section">
 
         <div className="container">
-
           <div className="cta-content">
-
-            <div>
-              <span>READY TO START?</span>
-
-              <h2>
-                Your Next Favorite Product
+            <div> <span>READY TO START?</span>
+              <h2> Your Next Favorite Product
                 <br />
                 Is Waiting for You.
               </h2>
-
-              <p>
-                Join us today and start exploring our collection.
-              </p>
+              <p> Join us today and start exploring our collection. </p>
             </div>
-
-            <button
-              className="cta-button"
-              onClick={() => navigate("/register")}
-            >
-              Get Started →
-            </button>
-
+            <button className="cta-button" onClick={() => navigate("/register")}> Get Started → </button>
           </div>
 
         </div>
 
       </section>
       <footer className="home-footer">
-
         <div className="container">
-
           <div className="footer-content">
-
             <div>
               <h3>🛍 E-Commerce</h3>
-              <p>
-                Your simple and trusted online shopping destination.
-              </p>
+              <p> Your simple and trusted online shopping destination. </p>
             </div>
 
             <div className="footer-links">
-
-              <button onClick={() => navigate("/login")}>
-                Login
-              </button>
-
-              <button onClick={() => navigate("/register")}>
-                Register
-              </button>
-
+              <button onClick={() => navigate("/login")}> Login </button>
+              <button onClick={() => navigate("/register")}> Register </button>
             </div>
 
           </div>
 
           <div className="footer-bottom">
-            <p>
-              © 2026 E-Commerce. All Rights Reserved.
-            </p>
+            <p>  © 2026 E-Commerce. All Rights Reserved. </p>
           </div>
-
         </div>
-
       </footer>
-
     </div>
   );
 };

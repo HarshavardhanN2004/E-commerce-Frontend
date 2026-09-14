@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
-
+import Swal from "sweetalert2";
+import "../styles/AdminOrderDetails.css";
 
 const AdminOrderDetails = () => {
   const { orderId } = useParams();
@@ -10,7 +11,7 @@ const AdminOrderDetails = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
-const [updatingStatus, setUpdatingStatus] = useState(false);
+  const [updatingStatus, setUpdatingStatus] = useState(false);
 
   const API_URL = process.env.REACT_APP_API_URL;
 
@@ -18,23 +19,19 @@ const [updatingStatus, setUpdatingStatus] = useState(false);
     try {
       setLoading(true);
       setError("");
-
       const token = localStorage.getItem("token");
-
       const response = await fetch(`${API_URL}/Orders/${orderId}`, {
         method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}`,},
       });
 
       if (!response.ok) {
         throw new Error("Failed to fetch order details.");
       }
 
-     const data = await response.json();
-    setOrder(data);
-    setSelectedStatus(data.status);
+      const data = await response.json();
+      setOrder(data);
+      setSelectedStatus(data.status);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -47,79 +44,80 @@ const [updatingStatus, setUpdatingStatus] = useState(false);
   }, [orderId]);
 
   const handleUpdateStatus = async () => {
-  try {
-    setUpdatingStatus(true);
-    setError("");
+    try {
+      setUpdatingStatus(true);
+      setError("");
 
-    const token = localStorage.getItem("token");
+      const token = localStorage.getItem("token");
+      const response = await fetch(`${API_URL}/Orders/${orderId}/status`,
+        {
+          method: "PUT",
+          headers: {"Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(selectedStatus),
+        }
+      );
 
-    const response = await fetch(
-      `${API_URL}/Orders/${orderId}/status`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(selectedStatus),
+      if (!response.ok) {
+        const errorData = await response.text();
+        throw new Error(
+          errorData || "Failed to update order status."
+        );
       }
-    );
 
-    if (!response.ok) {
-      const errorData = await response.text();
-      throw new Error(errorData || "Failed to update order status.");
+      const updatedOrder = await response.json();
+      setOrder(updatedOrder);
+      setSelectedStatus(updatedOrder.status);
+
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "success",
+        title: "Order status updated successfully",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+      });
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setUpdatingStatus(false);
     }
+  };
 
-    const updatedOrder = await response.json();
+  const getStatusBadgeClass = (status) => {
+    switch (status) {
+      case "Pending":
+        return "status-pending";
 
-    setOrder(updatedOrder);
-    setSelectedStatus(updatedOrder.status);
+      case "Confirmed":
+        return "status-confirmed";
 
-    alert("Order status updated successfully.");
-  } catch (error) {
-    setError(error.message);
-  } finally {
-    setUpdatingStatus(false);
-  }
-};
+      case "Shipped":
+        return "status-shipped";
 
-const getStatusBadgeClass = (status) => {
-  switch (status) {
-    case "Pending":
-      return "bg-warning text-dark";
+      case "Delivered":
+        return "status-delivered";
 
-    case "Confirmed":
-      return "bg-primary";
+      case "Cancelled":
+        return "status-cancelled";
 
-    case "Shipped":
-      return "bg-info text-dark";
-
-    case "Delivered":
-      return "bg-success";
-
-    case "Cancelled":
-      return "bg-danger";
-
-    default:
-      return "bg-secondary";
-  }
-};
+      default:
+        return "status-default";
+    }
+  };
 
   if (loading) {
     return (
       <>
         <Navbar />
 
-        <div className="text-center mt-5">
+        <div className="admin-order-loading">
           <div className="spinner-border text-primary" role="status">
-            <span className="visually-hidden">
-              Loading...
-            </span>
+            <span className="visually-hidden"> Loading... </span>
           </div>
-
-          <p className="mt-2">
-            Loading order details...
-          </p>
+          <p>Loading order details...</p>
         </div>
       </>
     );
@@ -129,19 +127,16 @@ const getStatusBadgeClass = (status) => {
     return (
       <>
         <Navbar />
-
         <main className="admin-order-details-page">
           <div className="container">
-            <div className="alert alert-danger">
-              {error}
+            <div className="admin-order-error">
+              <div className="error-icon">
+                ⚠️
+              </div>
+              <h4>Unable to Load Order</h4>
+              <p>{error}</p>
+              <button  className="btn btn-primary" onClick={() => navigate("/admin/orders")}>Back to Order </button>
             </div>
-
-            <button
-              className="btn btn-secondary"
-              onClick={() => navigate("/admin/orders")}
-            >
-              Back to Orders
-            </button>
           </div>
         </main>
       </>
@@ -155,138 +150,184 @@ const getStatusBadgeClass = (status) => {
   return (
     <>
       <Navbar />
-
       <main className="admin-order-details-page">
         <div className="container">
-
-          <div className="order-details-header">
-            <div>
-              <p className="admin-subtitle">
-                Admin Dashboard
-              </p>
-
+          <div className="admin-order-header">
+            <div className="admin-order-title-section">
+              <div className="admin-order-label"> ADMIN DASHBOARD </div>
               <h1>
                 Order #{order.orderId}
               </h1>
-
-              <p className="admin-description">
-                View complete order information.
-              </p>
+              <p> View customer, payment and product information.</p>
             </div>
 
-            <button
-              className="btn btn-secondary"
-              onClick={() => navigate("/admin/orders")}
-            >
-              Back to Orders
-            </button>
+            <button className="back-orders-button" onClick={() => navigate("/admin/orders")}> ← Back to Orders</button>
+          </div>
+
+          <div className="order-status-card">
+            <div className="status-card-left">
+              <div className="status-icon">
+                📦
+              </div>
+
+              <div>
+                <span className="status-label"> Current Order Status</span>
+                <span className={`order-status-badge ${getStatusBadgeClass(order.status )}`}>{order.status}</span>
+              </div>
+
+            </div>
+            <div className="status-card-right">
+              <label htmlFor="orderStatus"> Update Status</label>
+              <div className="status-update-controls">
+
+                <select id="orderStatus" className="form-select" value={selectedStatus} onChange={(event) =>setSelectedStatus(event.target.value)}
+                  disabled={updatingStatus}>
+                  <option value="Pending"> Pending</option>
+                  <option value="Confirmed">Confirmed</option>
+                  <option value="Shipped"> Shipped</option>
+                  <option value="Delivered"> Delivered</option>
+                  <option value="Cancelled"> Cancelled </option>
+                </select>
+
+                <button className="update-status-button" onClick={handleUpdateStatus} disabled={updatingStatus}>
+                  {updatingStatus ? (
+                    <>
+                      <span className="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+                      Updating...
+                    </>
+                  ) : ( "Update Status")}
+                </button>
+              </div>
+            </div>
           </div>
 
           <div className="row g-4">
-
             <div className="col-lg-6">
-              <div className="order-details-card">
+              <div className="information-card">
+                <div className="card-heading">
+                  <div className="card-heading-icon">
+                    👤
+                  </div>
 
-                <h4>Customer Information</h4>
-
-                <p>
-                  <strong>Name:</strong> {order.name}
-                </p>
-
-                <p>
-                  <strong>Phone:</strong> {order.phoneNumber}
-                </p>
-
-                <p>
-                  <strong>Address:</strong> {order.address}
-                </p>
-
-                <p>
-                  <strong>City:</strong> {order.city}
-                </p>
-
-                <p>
-                  <strong>State:</strong> {order.state}
-                </p>
-
-                <p>
-                  <strong>Postal Code:</strong> {order.postalCode}
-                </p>
-
-              </div>
-            </div>
-
-            <div className="col-lg-6">
-              <div className="order-details-card">
-
-                <h4>Order Information</h4>
-
-                <p>
-                  <strong>Order Date:</strong>{" "}
-                  {new Date(order.orderDate).toLocaleString()}
-                </p>
-
-                <p>
-                  <strong>Payment Method:</strong>{" "}
-                  {order.paymentMethod}
-                </p>
-
-                <div className="mb-3">
-                <label className="form-label">
-                    <strong>Order Status</strong>
-                </label>
-
-                <select
-                    className="form-select"
-                    value={selectedStatus}
-                    onChange={(event) =>
-                    setSelectedStatus(event.target.value)
-                    }
-                >
-                    <option value="Pending">Pending</option>
-                    <option value="Confirmed">Confirmed</option>
-                    <option value="Shipped">Shipped</option>
-                    <option value="Delivered">Delivered</option>
-                    <option value="Cancelled">Cancelled</option>
-                </select>
+                  <div>
+                    <h3> Customer Information</h3>
+                    <p> Customer delivery details</p>
+                  </div>
                 </div>
 
-                <button
-                className="btn btn-primary"
-                onClick={handleUpdateStatus}
-                disabled={updatingStatus}
-                >
-                {updatingStatus ? "Updating..." : "Update Status"}
-                </button>
 
-                <p>
-                  <strong>Total Amount:</strong>{" "}
-                  ₹{Number(order.totalAmount).toFixed(2)}
-                </p>
+                <div className="information-list">
+                  <div className="information-item">
+                    <span className="information-label"> Name </span>
+                    <span className="information-value"> {order.name} </span>
+                  </div>
 
-                <p>
-                  <strong>Shipping:</strong>{" "}
-                  ₹{Number(order.shippingAmount).toFixed(2)}
-                </p>
 
-                <p>
-                  <strong>Grand Total:</strong>{" "}
-                  ₹{Number(order.grandTotal).toFixed(2)}
-                </p>
+                  <div className="information-item">
+                    <span className="information-label">  Phone</span>
+                    <span className="information-value"> {order.phoneNumber}</span>
+                  </div>
 
+
+                  <div className="information-item">
+                    <span className="information-label"> Address </span>
+                    <span className="information-value"> {order.address} </span>
+                  </div>
+
+
+                  <div className="information-item">
+                    <span className="information-label">City</span>
+                    <span className="information-value">{order.city}</span>
+                  </div>
+
+
+                  <div className="information-item">
+                    <span className="information-label"> State</span>
+                    <span className="information-value"> {order.state}
+                    </span>
+                  </div>
+
+                  <div className="information-item">
+                    <span className="information-label"> Postal Code</span>
+                    <span className="information-value"> {order.postalCode} </span>
+                  </div>
+                </div>
               </div>
             </div>
 
+            <div className="col-lg-6">
+              <div className="information-card">
+                <div className="card-heading">
+                  <div className="card-heading-icon">
+                    🧾
+                  </div>
+
+                  <div>
+                    <h3>Order Information</h3>
+                    <p>  Payment and order summary </p>
+                  </div>
+                </div>
+
+                <div className="information-list">
+                  <div className="information-item">
+                    <span className="information-label"> Order Date </span>
+
+                    <span className="information-value">
+                      {new Date( order.orderDate).toLocaleString()}
+                    </span>
+                  </div>
+
+
+                  <div className="information-item">
+                    <span className="information-label"> Payment Method </span>
+                    <span className="information-value">{order.paymentMethod} </span>
+                  </div>
+
+
+                  <div className="information-item">
+                    <span className="information-label">Total Amount</span>
+
+                    <span className="information-value">
+                      ₹{Number( order.totalAmount ).toFixed(2)}
+                    </span>
+                  </div>
+
+
+                  <div className="information-item">
+
+                    <span className="information-label"> Shipping </span>
+
+                    <span className="information-value">
+                      ₹{Number(order.shippingAmount).toFixed(2)}
+                    </span>
+                  </div>
+
+                  <div className="grand-total-item">
+                    <span>  Grand Total</span>
+                    <strong>
+                      ₹{Number(order.grandTotal).toFixed(2)}</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div className="order-details-card mt-4">
+          <div className="products-card">
+            <div className="products-card-header">
+              <div>
+                <h3>Ordered Products</h3>
+                <p> Products included in this order</p>
+              </div>
 
-            <h4>Ordered Products</h4>
+              <div className="product-count">
+                {order.orderItems.length}{" "}
+                {order.orderItems.length === 1 ? "Product": "Products"}
+              </div>
+            </div>
+
 
             <div className="table-responsive">
-
-              <table className="table table-bordered table-hover">
-
+              <table className="order-products-table">
                 <thead>
                   <tr>
                     <th>Product</th>
@@ -300,32 +341,37 @@ const getStatusBadgeClass = (status) => {
                   {order.orderItems.map((item) => (
                     <tr key={item.orderItemId}>
 
-                      <td>
-                        {item.productName}
-                      </td>
+                      <td> <div className="product-name"> {item.productName} </div></td>
+                      <td><span className="quantity-badge">{item.quantity}</span></td>
 
-                      <td>
-                        {item.quantity}
-                      </td>
+                      <td> ₹{Number(item.unitPrice).toFixed(2)}</td>
 
-                      <td>
-                        ₹{Number(item.unitPrice).toFixed(2)}
+                      <td><strong> ₹{Number(item.subtotal).toFixed(2)}</strong>
                       </td>
-
-                      <td>
-                        ₹{Number(item.subtotal).toFixed(2)}
-                      </td>
-
                     </tr>
                   ))}
                 </tbody>
-
               </table>
-
             </div>
-
           </div>
 
+          <div className="order-total-summary">
+            <div className="summary-item">
+              <span>Products Total</span>
+              <strong> ₹{Number(order.totalAmount).toFixed(2)}</strong>
+            </div>
+
+            <div className="summary-item">
+              <span> Shipping </span>
+              <strong> ₹{Number(order.shippingAmount).toFixed(2)}</strong>
+            </div>
+
+
+            <div className="summary-grand-total">
+              <span> Grand Total</span>
+              <strong> ₹{Number(order.grandTotal).toFixed(2)} </strong>
+            </div>
+          </div>
         </div>
       </main>
     </>
