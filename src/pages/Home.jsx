@@ -15,7 +15,6 @@ const Home = () => {
             <button className="home-login-btn" onClick={() => navigate("/login")}> Login  </button>
             <button className="home-register-btn" onClick={() => navigate("/register")}> Register </button>
           </div>
-
         </div>
       </nav>
       <section className="home-hero">
@@ -45,7 +44,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            
+
             <div className="col-lg-6">
               <div className="hero-shopping-area">
                 <div className="shopping-circle"></div>
@@ -213,7 +212,6 @@ const Home = () => {
               </h2>
               <p> Join us today and start exploring our collection. </p>
             </div>
-            <button className="cta-button" onClick={() => navigate("/register")}> Get Started → </button>
           </div>
 
         </div>
