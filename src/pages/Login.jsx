@@ -70,7 +70,7 @@ const Login = () => {
     <div className="login-page">
       <div className="login-card">
         <div className="login-header">
-          <div className="login-logo">S</div>
+          <div className="login-logo">E</div>
           <h1>E-Commerce</h1>
           <p> Welcome back! Sign in to continue shopping. </p>
         </div>

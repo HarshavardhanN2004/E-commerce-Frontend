@@ -11,7 +11,8 @@ import Swal from "sweetalert2";
 const schema = yup.object({
   productName: yup
     .string()
-    .required("Product name is required."),
+    .required("Product name is required.")
+    .matches( /^[A-Za-z ]+$/, "Name can contain only letters and spaces."),
 
   description: yup
     .string()
@@ -240,21 +241,34 @@ const AdminProducts = () => {
       }
 
       const newProduct = await response.json();
+      const selectedCategory = categories.find(
+        (category) =>
+          Number(category.categoryId) === Number(newProduct.categoryId)
+      );
+
+      const productWithCategory = {
+        ...newProduct,
+        categoryName: selectedCategory?.categoryName || "",
+      };
+
       setProducts((currentProducts) => [
         ...currentProducts,
-        newProduct,
+        productWithCategory,
       ]);
 
       closeProductModal();
 
-     Swal.fire({
-  toast: true,
-  position: "top-end",
-  icon: "success",
-  title: "Product added successfully",
-  showConfirmButton: false,
-  timer: 2000,
-  timerProgressBar: true,
+    Swal.fire({
+    toast: true,
+    position: "top-end",
+    icon: "success",
+    title: "Product added successfully",
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    customClass: {
+        container: "admin-swal-container",
+    },
 });
     } catch (error) {
       console.error("Error adding product:", error);
@@ -319,14 +333,18 @@ const AdminProducts = () => {
 
       closeProductModal();
 Swal.fire({
-  toast: true,
-  position: "top-end",
-  icon: "success",
-  title: "Product updated successfully",
-  showConfirmButton: false,
-  timer: 2000,
-  timerProgressBar: true,
+    toast: true,
+    position: "top-end",
+    icon: "success",
+    title: "Product updated successfully",
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    customClass: {
+        container: "admin-swal-container",
+    },
 });
+
     } catch (error) {
       console.error("Error updating product:", error);
       setSubmitError(error.message);
@@ -483,7 +501,7 @@ Swal.fire({
 
       {showProductModal && (
         <>
-          <div className="modal fade show admin-product-modal" tabIndex="-1" role="dialog" aria-modal="true">
+         <div className="modal fade show d-block admin-product-modal-overlay" tabIndex="-1" role="dialog" aria-modal="true">
             <div className="modal-dialog modal-lg modal-dialog-centered">
               <div className="modal-content">
                 <div className="modal-header">

@@ -226,3 +226,190 @@
         align-self: flex-end;
     }
 }
+
+/* ==============================
+   Product Details Modal
+   ============================== */
+
+.product-details-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 3000;
+}
+
+.product-details-modal {
+    width: 100%;
+    max-width: 750px;
+    max-height: 90vh;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.20);
+    overflow: hidden;
+}
+
+/* Modal Header */
+
+.product-details-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 22px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.product-details-modal-header h4 {
+    margin: 0;
+    color: #111827;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.product-details-close-button {
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 50%;
+    background-color: #f3f4f6;
+    color: #374151;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.product-details-close-button:hover {
+    background-color: #e5e7eb;
+    color: #111827;
+}
+
+/* Modal Body */
+
+.product-details-modal-body {
+    display: flex;
+    gap: 30px;
+    padding: 25px;
+    overflow-y: auto;
+}
+
+.product-details-modal-image-section {
+    width: 45%;
+    min-height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.product-details-modal-image {
+    width: 100%;
+    height: 280px;
+    object-fit: contain;
+}
+
+.product-details-modal-image-placeholder {
+    font-size: 60px;
+    color: #9ca3af;
+}
+
+/* Modal Content */
+
+.product-details-modal-content {
+    flex: 1;
+    padding: 10px 0;
+}
+
+.product-details-modal-category {
+    display: inline-block;
+    color: #2563eb;
+    background-color: #eff6ff;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.product-details-modal-content h3 {
+    margin-bottom: 12px;
+    color: #111827;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.product-details-modal-description {
+    color: #6b7280;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.product-details-modal-price {
+    color: #111827;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.product-details-modal-stock {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Modal Footer */
+
+.product-details-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 16px 22px;
+    border-top: 1px solid #e5e7eb;
+    background-color: #f8f9fa;
+}
+
+/* ==============================
+   Mobile
+   ============================== */
+
+@media (max-width: 600px) {
+
+    .product-details-modal-overlay {
+        padding: 12px;
+    }
+
+    .product-details-modal {
+        max-height: 95vh;
+    }
+
+    .product-details-modal-body {
+        flex-direction: column;
+        gap: 20px;
+        padding: 18px;
+    }
+
+    .product-details-modal-image-section {
+        width: 100%;
+        min-height: 220px;
+    }
+
+    .product-details-modal-image {
+        height: 220px;
+    }
+
+    .product-details-modal-content h3 {
+        font-size: 21px;
+    }
+
+    .product-details-modal-footer {
+        padding: 14px 18px;
+    }
+
+}

@@ -8,8 +8,17 @@ const AdminOrders = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-
   const API_URL = process.env.REACT_APP_API_URL;
+  const formatDate = (dateValue) => {
+  if (!dateValue) {
+    return "";
+  }
+  const date = new Date(dateValue);
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
+  return `${day}-${month}-${year}`;
+};
 
   const fetchOrders = async () => {
     try {
@@ -71,7 +80,6 @@ const AdminOrders = () => {
         <div className="container">
           <div className="admin-orders-header">
             <div>
-              <p className="admin-subtitle">Admin Dashboard</p>
               <h1>Manage Orders</h1>
               <p className="admin-description"> View and manage customer orders. </p>
             </div>
@@ -118,7 +126,7 @@ const AdminOrders = () => {
                       <tr key={order.orderId}>
                         <td> #{order.orderId} </td>
                         <td> {order.name} </td>
-                        <td> {new Date(order.orderDate).toLocaleDateString()}</td>
+                       <td>{formatDate(order.orderDate)}</td>
                         <td> {order.orderItems.length}</td>
                         <td> ₹{Number(order.grandTotal).toFixed(2)} </td>
                         <td> <span className={`badge ${getStatusBadgeClass(order.status)}`}>{order.status} </span> </td>

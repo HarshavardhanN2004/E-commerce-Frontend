@@ -5,9 +5,7 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import Unauthorized from "./pages/Unauthorized";
 import Products from "./pages/Products";
-import ProductDetails from "./pages/ProductDetails";
 import Cart from "./pages/Cart";
-import Checkout from "./pages/Checkout";
 import Order from "./pages/Order";
 import MyOrders from "./pages/MyOrders";
 import Profile from "./pages/Profile";
@@ -29,9 +27,7 @@ const App = () => {
 
         <Route element={<ProtectedRoute />}>
           <Route path="/products" element={<Products />} />
-          <Route path="/products/:productId" element={<ProductDetails />}/>
           <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout />} />
           <Route path="/orders" element={<MyOrders />} />
           <Route path="/orders/:orderId" element={<Order />}/>
           <Route path="/profile" element={<Profile />} />

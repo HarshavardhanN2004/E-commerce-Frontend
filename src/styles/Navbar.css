@@ -1,21 +1,25 @@
 .shop-navbar {
     min-height: 70px;
-    background: #111827;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid #e5e7eb;
+    position: relative;
+    z-index: 1100;
 }
 
 .shop-logo {
     border: none;
     background: transparent;
-    color: #ffffff;
+    color: #111827;
     font-size: 25px;
     font-weight: 700;
     padding: 0;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .shop-logo:hover {
-    color: #0d6efd;
+    color: #2563eb;
 }
 
 .nav-button {
@@ -26,56 +30,262 @@
 
 .shop-navbar .nav-link {
     margin: 0 5px;
-    color: #d1d5db;
+    color: #374151;
     font-weight: 500;
     transition: color 0.2s ease;
 }
 
 .shop-navbar .nav-link:hover {
-    color: #ffffff;
+    color: #2563eb;
 }
 
 .navbar-user {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 18px;
+    margin-left: auto;
 }
 
-.user-info {
+.navbar-profile-container {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 7px;
-    color: #ffffff;
 }
 
-.welcome-text {
-    color: #9ca3af;
+.navbar-profile-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border: 1px solid #dbeafe;
+    outline: none;
+    background-color: #eff6ff;
+    color: #1d4ed8;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease,
+                border-color 0.2s ease;
+}
+
+.navbar-profile-badge:hover {
+    background-color: #dbeafe;
+    border-color: #bfdbfe;
+}
+
+.navbar-profile-badge:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.navbar-welcome-text {
+    color: #4b5563;
     font-size: 14px;
+    white-space: nowrap;
 }
 
-.user-name {
+.navbar-user-name {
+    color: #1d4ed8;
     font-weight: 600;
     font-size: 14px;
+    white-space: nowrap;
 }
 
-.user-role {
-    padding: 3px 9px;
-    border-radius: 20px;
-    background: #2563eb;
+.navbar-profile-card {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 270px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    z-index: 2000;
+}
+
+.navbar-profile-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background-color: #f8fafc;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.navbar-profile-icon {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    border-radius: 50%;
+    background-color: #2563eb;
     color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.navbar-profile-header-info {
+    min-width: 0;
+}
+
+.navbar-profile-card-header h6 {
+    margin: 0;
+    color: #111827;
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.navbar-profile-card-header span {
+    color: #6b7280;
+    font-size: 12px;
+}
+
+.navbar-profile-card-body {
+    padding: 16px;
+}
+
+.navbar-profile-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-bottom: 12px;
+}
+
+.navbar-profile-label {
+    color: #6b7280;
     font-size: 11px;
     font-weight: 600;
+    text-transform: uppercase;
+}
+
+.navbar-profile-value {
+    color: #111827;
+    font-size: 13px;
+    word-break: break-word;
+}
+
+.navbar-view-profile-button {
+    width: 100%;
+    border: none;
+    border-radius: 7px;
+    background-color: #2563eb;
+    color: #ffffff;
+    padding: 9px 12px;
+    margin-top: 3px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.navbar-view-profile-button:hover {
+    background-color: #1d4ed8;
+}
+
+.navbar-cart-button {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background-color: transparent;
+    color: #374151;
+    font-size: 19px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.navbar-cart-button:hover {
+    background-color: #eff6ff;
+    color: #2563eb;
+    transform: translateY(-1px);
+}
+
+.navbar-cart-button:focus {
+    outline: none;
+    box-shadow: none;
 }
 
 .logout-button {
-    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border: 1px solid #e5e7eb;
     border-radius: 8px;
-    padding: 8px 17px;
-    font-weight: 600;
+    padding: 9px 18px;
+    background-color: #f8fafc;
+    color: #374151;
     font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.logout-button:hover {
+    background-color: #fee2e2;
+    border-color: #fecaca;
+    color: #dc2626;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(220, 38, 38, 0.15);
+}
+
+.logout-button:active {
+    transform: translateY(0);
+}
+
+.navbar-toggler {
+    border: 1px solid #374151 !important;
+    padding: 6px 9px;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+.navbar-toggler-icon {
+    background-image: none !important;
+    width: 22px;
+    height: 18px;
+    position: relative;
+    display: inline-block;
+}
+
+.navbar-toggler-icon::before,
+.navbar-toggler-icon::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 22px;
+    height: 2px;
+    background-color: #374151;
+}
+
+.navbar-toggler-icon::before {
+    top: 3px;
+    box-shadow: 0 6px 0 #374151, 0 12px 0 #374151;
+}
+
+.swal2-container {
+    z-index: 9999 !important;
+}
+
+.admin-swal-container {
+    z-index: 9999 !important;
 }
 
 @media (max-width: 991px) {
+
     .navbar-user {
         align-items: flex-start;
         flex-direction: column;
@@ -83,11 +293,39 @@
         padding: 15px 0;
     }
 
-    .user-info {
-        flex-wrap: wrap;
+    .navbar-profile-container {
+        width: 100%;
+    }
+
+    .navbar-profile-badge {
+        padding-left: 12px;
+    }
+
+    .navbar-profile-card {
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 0;
+        right: auto;
+        width: 270px;
+    }
+
+    .navbar-cart-button {
+        margin-left: 0;
     }
 
     .logout-button {
         width: 100%;
+    }
+}
+
+@media (max-width: 400px) {
+
+    .navbar-profile-card {
+        width: 250px;
+    }
+
+    .navbar-welcome-text,
+    .navbar-user-name {
+        font-size: 13px;
     }
 }

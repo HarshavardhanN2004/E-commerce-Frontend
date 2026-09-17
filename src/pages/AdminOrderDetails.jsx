@@ -12,8 +12,18 @@ const AdminOrderDetails = () => {
   const [error, setError] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
   const [updatingStatus, setUpdatingStatus] = useState(false);
-
   const API_URL = process.env.REACT_APP_API_URL;
+  const formatDate = (dateValue) => {
+  if (!dateValue) {
+    return "";
+  }
+  const date = new Date(dateValue);
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
+
+  return `${day}-${month}-${year}`;
+};
 
   const fetchOrder = async () => {
     try {
@@ -146,6 +156,7 @@ const AdminOrderDetails = () => {
   if (!order) {
     return null;
   }
+  const isDelivered = order.status === "Delivered";
 
   return (
     <>
@@ -154,7 +165,6 @@ const AdminOrderDetails = () => {
         <div className="container">
           <div className="admin-order-header">
             <div className="admin-order-title-section">
-              <div className="admin-order-label"> ADMIN DASHBOARD </div>
               <h1>
                 Order #{order.orderId}
               </h1>
@@ -180,8 +190,8 @@ const AdminOrderDetails = () => {
               <label htmlFor="orderStatus"> Update Status</label>
               <div className="status-update-controls">
 
-                <select id="orderStatus" className="form-select" value={selectedStatus} onChange={(event) =>setSelectedStatus(event.target.value)}
-                  disabled={updatingStatus}>
+               <select id="orderStatus" className="form-select" value={selectedStatus} onChange={(event) => setSelectedStatus(event.target.value)}
+                disabled={updatingStatus || isDelivered}>
                   <option value="Pending"> Pending</option>
                   <option value="Confirmed">Confirmed</option>
                   <option value="Shipped"> Shipped</option>
@@ -189,7 +199,7 @@ const AdminOrderDetails = () => {
                   <option value="Cancelled"> Cancelled </option>
                 </select>
 
-                <button className="update-status-button" onClick={handleUpdateStatus} disabled={updatingStatus}>
+                <button className="update-status-button" onClick={handleUpdateStatus}  disabled={updatingStatus || isDelivered}>
                   {updatingStatus ? (
                     <>
                       <span className="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
@@ -198,6 +208,9 @@ const AdminOrderDetails = () => {
                   ) : ( "Update Status")}
                 </button>
               </div>
+               {isDelivered && (
+                <small className="text-muted"> Delivered orders cannot be updated.</small>
+                )}
             </div>
           </div>
 
@@ -215,31 +228,26 @@ const AdminOrderDetails = () => {
                   </div>
                 </div>
 
-
                 <div className="information-list">
                   <div className="information-item">
                     <span className="information-label"> Name </span>
                     <span className="information-value"> {order.name} </span>
                   </div>
 
-
                   <div className="information-item">
                     <span className="information-label">  Phone</span>
                     <span className="information-value"> {order.phoneNumber}</span>
                   </div>
-
 
                   <div className="information-item">
                     <span className="information-label"> Address </span>
                     <span className="information-value"> {order.address} </span>
                   </div>
 
-
                   <div className="information-item">
                     <span className="information-label">City</span>
                     <span className="information-value">{order.city}</span>
                   </div>
-
 
                   <div className="information-item">
                     <span className="information-label"> State</span>
@@ -271,9 +279,8 @@ const AdminOrderDetails = () => {
                 <div className="information-list">
                   <div className="information-item">
                     <span className="information-label"> Order Date </span>
-
                     <span className="information-value">
-                      {new Date( order.orderDate).toLocaleString()}
+                     {formatDate(order.orderDate)}
                     </span>
                   </div>
 
@@ -283,10 +290,8 @@ const AdminOrderDetails = () => {
                     <span className="information-value">{order.paymentMethod} </span>
                   </div>
 
-
                   <div className="information-item">
                     <span className="information-label">Total Amount</span>
-
                     <span className="information-value">
                       ₹{Number( order.totalAmount ).toFixed(2)}
                     </span>
@@ -294,9 +299,7 @@ const AdminOrderDetails = () => {
 
 
                   <div className="information-item">
-
                     <span className="information-label"> Shipping </span>
-
                     <span className="information-value">
                       ₹{Number(order.shippingAmount).toFixed(2)}
                     </span>
