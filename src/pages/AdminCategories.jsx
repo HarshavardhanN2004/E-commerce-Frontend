@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import Navbar from "../components/Navbar";
 import "../styles/AdminCategories.css";
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -225,6 +226,8 @@ function AdminCategories() {
   };
 
   return (
+    <>
+    <Navbar />
     <div className="admin-categories-page">
       <div className="container py-4">
         <div className="categories-header">
@@ -406,6 +409,7 @@ function AdminCategories() {
         </>
       )}
     </div>
+   </>
   );
 }
 

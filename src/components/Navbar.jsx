@@ -52,7 +52,9 @@ const handleLogout = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark shop-navbar">
       <div className="container">
-        <button className="navbar-brand shop-logo" onClick={() => navigate("/products")}> E-Commerce </button>
+        <button className="navbar-brand shop-logo" onClick={() => navigate("/products")}> 
+           <i className="fas fa-shopping-bag"></i>
+          E-Commerce </button>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#shopNavbar"
           aria-controls="shopNavbar" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>

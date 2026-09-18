@@ -4,11 +4,7 @@
   align-items: center;
   justify-content: center;
   padding: 30px 20px;
-  background: linear-gradient(
-    135deg,
-    #f8fafc,
-    #eef2ff
-  );
+  background: linear-gradient(135deg, #f8fafc, #eef2ff);
 }
 
 .unauthorized-card {

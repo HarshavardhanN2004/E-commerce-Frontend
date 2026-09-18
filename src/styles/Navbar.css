@@ -18,6 +18,11 @@
     white-space: nowrap;
 }
 
+.shop-logo i{
+    margin-right: 8px;
+    color: #0d6efd;
+}
+
 .shop-logo:hover {
     color: #2563eb;
 }

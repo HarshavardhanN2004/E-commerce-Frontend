@@ -140,9 +140,6 @@ const AdminOrderDetails = () => {
         <main className="admin-order-details-page">
           <div className="container">
             <div className="admin-order-error">
-              <div className="error-icon">
-                ⚠️
-              </div>
               <h4>Unable to Load Order</h4>
               <p>{error}</p>
               <button  className="btn btn-primary" onClick={() => navigate("/admin/orders")}>Back to Order </button>
@@ -176,10 +173,6 @@ const AdminOrderDetails = () => {
 
           <div className="order-status-card">
             <div className="status-card-left">
-              <div className="status-icon">
-                📦
-              </div>
-
               <div>
                 <span className="status-label"> Current Order Status</span>
                 <span className={`order-status-badge ${getStatusBadgeClass(order.status )}`}>{order.status}</span>
@@ -218,10 +211,6 @@ const AdminOrderDetails = () => {
             <div className="col-lg-6">
               <div className="information-card">
                 <div className="card-heading">
-                  <div className="card-heading-icon">
-                    👤
-                  </div>
-
                   <div>
                     <h3> Customer Information</h3>
                     <p> Customer delivery details</p>
@@ -266,10 +255,6 @@ const AdminOrderDetails = () => {
             <div className="col-lg-6">
               <div className="information-card">
                 <div className="card-heading">
-                  <div className="card-heading-icon">
-                    🧾
-                  </div>
-
                   <div>
                     <h3>Order Information</h3>
                     <p>  Payment and order summary </p>

@@ -642,7 +642,6 @@ Swal.fire({
                     <strong> {deletingProduct.productName} </strong>
                     .
                   </p>
-                  <p className="text-danger mb-0"> This action cannot be undone. </p>
                   {error && (
                     <div className="alert alert-danger mt-3">
                       {error}

@@ -4,11 +4,6 @@
     color: #333333;
 }
 
-
-/* ==============================
-   Navbar
-   ============================== */
-
 .home-navbar {
     background-color: #ffffff;
     border-bottom: 1px solid #dddddd;
@@ -69,11 +64,6 @@
     background-color: #0b5ed7;
 }
 
-
-/* ==============================
-   Hero
-   ============================== */
-
 .home-hero {
     background-color: #f5f8fc;
     padding: 80px 0;
@@ -116,11 +106,6 @@
     background-color: #0b5ed7;
 }
 
-
-/* ==============================
-   Hero Right Side
-   ============================== */
-
 .hero-icon {
     text-align: center;
     background-color: #ffffff;
@@ -146,11 +131,6 @@
     margin: 0;
 }
 
-
-/* ==============================
-   Common Section Heading
-   ============================== */
-
 .section-heading {
     text-align: center;
     margin-bottom: 35px;
@@ -167,11 +147,6 @@
     color: #777777;
     margin: 0;
 }
-
-
-/* ==============================
-   Features
-   ============================== */
 
 .features-section {
     padding: 65px 0;
@@ -209,11 +184,6 @@
     margin: 0;
 }
 
-
-/* ==============================
-   Categories
-   ============================== */
-
 .categories-section {
     padding: 65px 0;
     background-color: #f5f5f5;
@@ -242,11 +212,6 @@
 .category-card:hover {
     border-color: #0d6efd;
 }
-
-
-/* ==============================
-   CTA
-   ============================== */
 
 .simple-cta {
     background-color: #0d6efd;
@@ -281,11 +246,6 @@
 .simple-cta button:hover {
     background-color: #f2f2f2;
 }
-
-
-/* ==============================
-   Footer
-   ============================== */
 
 .home-footer {
     background-color: #222222;
@@ -344,11 +304,6 @@
     margin: 0;
 }
 
-
-/* ==============================
-   Tablet
-   ============================== */
-
 @media (max-width: 767px) {
 
     .home-hero {
@@ -382,11 +337,6 @@
     }
 
 }
-
-
-/* ==============================
-   Small Mobile
-   ============================== */
 
 @media (max-width: 450px) {
 

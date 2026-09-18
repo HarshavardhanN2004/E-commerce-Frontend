@@ -227,10 +227,6 @@
     }
 }
 
-/* ==============================
-   Product Details Modal
-   ============================== */
-
 .product-details-modal-overlay {
     position: fixed;
     top: 0;
@@ -254,8 +250,6 @@
     box-shadow: 0 10px 35px rgba(0, 0, 0, 0.20);
     overflow: hidden;
 }
-
-/* Modal Header */
 
 .product-details-modal-header {
     display: flex;
@@ -289,8 +283,6 @@
     color: #111827;
 }
 
-/* Modal Body */
-
 .product-details-modal-body {
     display: flex;
     gap: 30px;
@@ -319,8 +311,6 @@
     font-size: 60px;
     color: #9ca3af;
 }
-
-/* Modal Content */
 
 .product-details-modal-content {
     flex: 1;
@@ -364,8 +354,6 @@
     font-weight: 600;
 }
 
-/* Modal Footer */
-
 .product-details-modal-footer {
     display: flex;
     justify-content: flex-end;
@@ -374,10 +362,6 @@
     border-top: 1px solid #e5e7eb;
     background-color: #f8f9fa;
 }
-
-/* ==============================
-   Mobile
-   ============================== */
 
 @media (max-width: 600px) {
 
