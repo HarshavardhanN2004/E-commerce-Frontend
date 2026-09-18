@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import Navbar from "../components/Navbar";
 import "../styles/AdminProducts.css";
 import Swal from "sweetalert2";
+import fetchApi from "../services/fetchApi";
 
 const schema = yup.object({
   productName: yup
@@ -53,10 +54,10 @@ const AdminProducts = () => {
   const [deletingProduct, setDeletingProduct] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [imagePreview, setImagePreview] = useState("");
-
-  const API_URL = process.env.REACT_APP_API_URL;
-
-  const token = localStorage.getItem("token");
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 5;
+ const token = localStorage.getItem("token");
+  const SERVER_URL = process.env.REACT_APP_API_URL.replace("/api", "");
 
   const {
     register,
@@ -79,18 +80,14 @@ const AdminProducts = () => {
     try {
       setLoading(true);
       setError("");
-
-      const response = await fetch(`${API_URL}/Products`, {
+    const response = await fetchApi("/Products", {
         method: "GET",
         headers: { Authorization: `Bearer ${token}`,},
       });
-
       if (!response.ok) {
         throw new Error("Failed to fetch products.");
       }
-
       const data = await response.json();
-
       setProducts(data);
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -104,12 +101,10 @@ const AdminProducts = () => {
     try {
       setCategoryLoading(true);
       setCategoryError("");
-
-      const response = await fetch(`${API_URL}/Categories`, {
+      const response = await fetchApi("/Categories", {
         method: "GET",
         headers: { Authorization: `Bearer ${token}`,},
       });
-
       if (!response.ok) {
         throw new Error("Failed to fetch categories.");
       }
@@ -160,9 +155,8 @@ const AdminProducts = () => {
     setSelectedImage(null);
     setSubmitError("");
     setCategoryError("");
-
     if (product.imagePath) {
-      setImagePreview(`${API_URL.replace("/api", "")}${product.imagePath}`);
+      setImagePreview(`${SERVER_URL}${product.imagePath}`);
     } else {
       setImagePreview("");
     }
@@ -187,21 +181,20 @@ const AdminProducts = () => {
   };
 
   const handleImageChange = (event) => {
-    const file = event.target.files[0];
-
-    if (!file) {
-      setSelectedImage(null);
-      if (editingProduct?.imagePath) {
-        setImagePreview(`${API_URL.replace("/api", "")}${editingProduct.imagePath}`);
-      } else {
-        setImagePreview("");
-      }
-      return;
+  const file = event.target.files[0];
+  if (!file) {
+    setSelectedImage(null);
+    if (editingProduct?.imagePath) {
+      setImagePreview(`${SERVER_URL}${editingProduct.imagePath}`);
+    } else {
+      setImagePreview("");
     }
-    setSelectedImage(file);
-    const previewUrl = URL.createObjectURL(file);
-    setImagePreview(previewUrl);
-  };
+    return;
+  }
+  setSelectedImage(file);
+  const previewUrl = URL.createObjectURL(file);
+  setImagePreview(previewUrl);
+};
 
   const handleAddProduct = async (data) => {
     try {
@@ -219,7 +212,7 @@ const AdminProducts = () => {
         formData.append("Image", selectedImage);
       }
 
-      const response = await fetch(`${API_URL}/Products`, {
+      const response = await fetchApi("/Products", {
         method: "POST",
         headers: { Authorization: `Bearer ${token}`,},
         body: formData,
@@ -294,8 +287,7 @@ const AdminProducts = () => {
         formData.append("Image", selectedImage);
       }
 
-      const response = await fetch(
-        `${API_URL}/Products/${editingProduct.productId}`,
+        const response = await fetchApi(`/Products/${editingProduct.productId}`,
         {
           method: "PUT",
           headers: {
@@ -413,10 +405,17 @@ Swal.fire({
 
 
   const getImageUrl = (imagePath) => {
-    if (!imagePath) {
-      return "";
-    }
-    return `${API_URL.replace("/api", "")}${imagePath}`;
+  if (!imagePath) {
+    return "";
+  }
+  return `${SERVER_URL}${imagePath}`;
+};
+
+  const totalPages = Math.ceil(products.length / productsPerPage);
+  const startIndex = (currentPage - 1) * productsPerPage;
+  const currentProducts = products.slice( startIndex, startIndex + productsPerPage);
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
 
   return (
@@ -429,7 +428,10 @@ Swal.fire({
               <h1>Manage Products</h1>
               <p>View and manage all products. </p>
             </div>
-            <button type="button" className="btn btn-primary" onClick={openAddModal}> Add Product</button>
+           <button type="button" className="btn btn-primary" onClick={openAddModal}>
+              <i className="bi bi-plus-circle me-1"></i>
+              Add Product
+            </button>
           </div>
           {error && !deletingProduct && (
             <div className="alert alert-danger">
@@ -469,7 +471,7 @@ Swal.fire({
                   {products.length === 0 ? (
                     <tr> <td colSpan="7" className="text-center"> No products found. </td></tr>
                   ) : (
-                    products.map((product) => (
+                   currentProducts.map((product) => (
                       <tr key={product.productId}>
                         <td> {product.productId}</td>
                         <td>
@@ -481,11 +483,13 @@ Swal.fire({
                         <td> {product.categoryName}</td>
                         <td> ₹ {Number(product.price).toFixed(2)} </td>
                         <td> {product.stock}</td>
-                        <td>
-                          <button type="button" className="btn btn-sm btn-outline-primary me-2" onClick={() =>openEditModal(product)}>
+                        <td> <button type="button" className="btn btn-sm btn-outline-primary me-2" onClick={() => openEditModal(product)}>
+                            <i className="bi bi-pencil-square me-1"></i>
                             Edit
                           </button>
-                          <button type="button" className="btn btn-sm btn-outline-danger" onClick={() =>openDeleteModal(product)}>
+
+                          <button type="button" className="btn btn-sm btn-outline-danger" onClick={() => openDeleteModal(product)}>
+                            <i className="bi bi-trash me-1"></i>
                             Delete
                           </button>
                         </td>
@@ -494,6 +498,29 @@ Swal.fire({
                   )}
                 </tbody>
               </table>
+
+          {totalPages > 1 && (
+          <nav className="mt-3">
+            <ul className="pagination justify-content-center">
+              <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+                <button type="button" className="page-link" onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+                  Previous
+                </button>
+              </li>
+
+              {Array.from({ length: totalPages }, (_, index) => (
+                <li key={index + 1} className={`page-item ${currentPage === index + 1 ? "active" : "" }`} >
+                  <button type="button" className="page-link" onClick={() => handlePageChange(index + 1)}> {index + 1}</button>
+                </li>
+              ))}
+              <li className={`page-item ${currentPage === totalPages ? "disabled" : ""}`}>
+                <button type="button" className="page-link" onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
+                  Next
+                </button>
+              </li>
+            </ul>
+          </nav>
+        )}
             </div>
           )}
         </div>
@@ -656,7 +683,12 @@ Swal.fire({
                       <>
                         <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Deleting...
                       </>
-                    ) : ( "Yes, Delete" )}
+                    )  : (
+                    <>
+                        <i className="bi bi-trash me-1"></i>
+                        Yes, Delete
+                      </>
+                    )}
                   </button>
                 </div>
               </div>

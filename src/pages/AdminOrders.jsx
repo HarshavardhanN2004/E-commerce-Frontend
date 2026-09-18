@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import "../styles/AdminOrders.css";
+import fetchApi from "../services/fetchApi";
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const ordersPerPage = 5;
   const navigate = useNavigate();
-  const API_URL = process.env.REACT_APP_API_URL;
   const formatDate = (dateValue) => {
   if (!dateValue) {
     return "";
@@ -24,10 +26,9 @@ const AdminOrders = () => {
     try {
       setLoading(true);
       setError("");
-
       const token = localStorage.getItem("token");
 
-      const response = await fetch(`${API_URL}/Orders`, {
+     const response = await fetchApi("/Orders", {
         method: "GET",
         headers: { Authorization: `Bearer ${token}`,},
       });
@@ -71,6 +72,12 @@ const AdminOrders = () => {
       return "bg-secondary";
   }
 };
+  const totalPages = Math.ceil(orders.length / ordersPerPage);
+  const startIndex = (currentPage - 1) * ordersPerPage;
+  const currentOrders = orders.slice(startIndex,startIndex + ordersPerPage);
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <>
@@ -122,7 +129,7 @@ const AdminOrders = () => {
                       <td colSpan="7" className="text-center"> No orders found. </td>
                     </tr>
                   ) : (
-                    orders.map((order) => (
+                   currentOrders.map((order) => (
                       <tr key={order.orderId}>
                         <td> #{order.orderId} </td>
                         <td> {order.name} </td>
@@ -140,6 +147,30 @@ const AdminOrders = () => {
                   )}
                 </tbody>
               </table>
+               {totalPages > 1 && (
+            <nav className="mt-3">
+              <ul className="pagination justify-content-center">
+                <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+                  <button type="button" className="page-link" onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+                    Previous
+                  </button>
+                </li>
+
+                {Array.from({ length: totalPages }, (_, index) => (
+                  <li key={index + 1} className={`page-item ${currentPage === index + 1 ? "active" : "" }`}>
+                    <button type="button" className="page-link" onClick={() => handlePageChange(index + 1)}>
+                      {index + 1}
+                    </button>
+                  </li>
+                ))}
+                <li className={`page-item ${currentPage === totalPages ? "disabled" : "" }`}>
+                  <button type="button" className="page-link" onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
+                    Next
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          )}
             </div>
           )}
         </div>

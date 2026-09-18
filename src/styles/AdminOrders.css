@@ -33,8 +33,10 @@
 }
 
 .admin-orders-table th {
-  white-space: nowrap;
-  font-weight: 600;
+   font-weight: 600;
+    white-space: nowrap;
+    background-color: #dbeafe;
+    color: #1e3a8a;
 }
 
 .admin-orders-table td {

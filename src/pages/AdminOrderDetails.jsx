@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Swal from "sweetalert2";
 import "../styles/AdminOrderDetails.css";
+import fetchApi from "../services/fetchApi";
 
 const AdminOrderDetails = () => {
   const { orderId } = useParams();
@@ -12,7 +13,6 @@ const AdminOrderDetails = () => {
   const [error, setError] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
   const [updatingStatus, setUpdatingStatus] = useState(false);
-  const API_URL = process.env.REACT_APP_API_URL;
   const formatDate = (dateValue) => {
   if (!dateValue) {
     return "";
@@ -30,7 +30,7 @@ const AdminOrderDetails = () => {
       setLoading(true);
       setError("");
       const token = localStorage.getItem("token");
-      const response = await fetch(`${API_URL}/Orders/${orderId}`, {
+     const response = await fetchApi(`/Orders/${orderId}`, {
         method: "GET",
         headers: { Authorization: `Bearer ${token}`,},
       });
@@ -59,7 +59,7 @@ const AdminOrderDetails = () => {
       setError("");
 
       const token = localStorage.getItem("token");
-      const response = await fetch(`${API_URL}/Orders/${orderId}/status`,
+    const response = await fetchApi(`/Orders/${orderId}/status`,
         {
           method: "PUT",
           headers: {"Content-Type": "application/json",

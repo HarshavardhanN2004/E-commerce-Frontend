@@ -89,7 +89,9 @@ const Register = () => {
     <div className="register-page">
       <div className="register-card">
         <div className="register-header">
-          <div className="register-logo">S</div>
+          <div className="register-logo">
+            <i className="bi bi-person-plus-fill"></i>
+          </div>
           <h1>Create Account</h1>
           <p> Join E-Commerce and start shopping today. </p>
         </div>
@@ -136,7 +138,7 @@ const Register = () => {
           <div className="mb-3">
             <label htmlFor="password" className="form-label"> Password </label>
 
-            <input type="password" id="password" placeholder="Create a password"
+            <input type="password" id="password" placeholder="Enter your password"
               className={`form-control ${
                 errors.password ? "is-invalid" : ""
               }`}
@@ -166,10 +168,10 @@ const Register = () => {
             {isSubmitting ? (
               <>
                 <span className="spinner-border spinner-border-sm me-2" aria-hidden="true" ></span>
-                Creating Account...
+                Registering Account...
               </>
             ) : (
-              "Create Account"
+              "Register Account"
             )}
           </button>
         </form>

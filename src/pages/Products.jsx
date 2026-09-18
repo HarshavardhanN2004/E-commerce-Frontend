@@ -17,6 +17,8 @@ const Products = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 4;
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -38,6 +40,16 @@ const Products = () => {
     return matchesSearch && matchesCategory;
   });
 
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+  const startIndex = (currentPage - 1) * productsPerPage;
+  const currentProducts = filteredProducts.slice(startIndex,startIndex + productsPerPage);
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  useEffect(() => {
+  setCurrentPage(1);
+}, [searchTerm, selectedCategory]);
 
   const handleAddToCart = async (productId) => {
     try {
@@ -133,8 +145,9 @@ const Products = () => {
           {!loading &&
             !error &&
             filteredProducts.length > 0 && (
+              <>
               <div className="row g-4">
-                {filteredProducts.map((product) => (
+                {currentProducts.map((product) => (
                   <div className="col-sm-6 col-lg-4 col-xl-3" key={product.productId}>
                     <div className="product-card">
                       <div className="product-image-container">
@@ -170,6 +183,32 @@ const Products = () => {
                   </div>
                 ))}
               </div>
+              {totalPages > 1 && (
+              <nav className="mt-4">
+                <ul className="pagination justify-content-center">
+                  <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+                    <button type="button" className="page-link" onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+                      Previous
+                    </button>
+                  </li>
+
+                  {Array.from({ length: totalPages }, (_, index) => (
+                    <li key={index + 1} className={`page-item ${currentPage === index + 1 ? "active" : ""}`}>
+                      <button type="button" className="page-link" onClick={() => handlePageChange(index + 1)}>
+                        {index + 1}
+                      </button>
+                    </li>
+                  ))}
+                  <li className={`page-item ${currentPage === totalPages ? "disabled" : ""}`}>
+                    <button type="button" className="page-link" onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
+                      Next
+                    </button>
+                  </li>
+
+                </ul>
+              </nav>
+            )}
+          </>
             )}
         </div>
       </main>

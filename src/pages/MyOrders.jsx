@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
@@ -11,6 +11,8 @@ const MyOrders = () => {
   const { orders, loading, error } = useSelector(
     (state) => state.order
   );
+  const [currentPage, setCurrentPage] = useState(1);
+  const ordersPerPage = 4;
   const formatDate = (dateValue) => {
     if (!dateValue) {
       return "";
@@ -45,9 +47,20 @@ const MyOrders = () => {
     }
   };
 
+  const totalPages = Math.ceil(orders.length / ordersPerPage);
+  const startIndex = (currentPage - 1) * ordersPerPage;
+  const currentOrders = orders.slice(startIndex,startIndex + ordersPerPage);
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   useEffect(() => {
     dispatch(fetchMyOrders());
   }, [dispatch]);
+
+  useEffect(() => {
+  setCurrentPage(1);
+}, [orders]);
 
   if (loading) {
     return (
@@ -117,7 +130,7 @@ const MyOrders = () => {
                 </thead>
 
                 <tbody>
-                  {orders.map((order) => (
+                  {currentOrders.map((order) => (
                     <tr key={order.orderId}>
                       <td> <strong>  #{order.orderId} </strong></td>
                       <td> {formatDate(order.orderDate)}</td>
@@ -130,6 +143,31 @@ const MyOrders = () => {
                   ))}
                 </tbody>
               </table>
+              {totalPages > 1 && (
+              <nav className="mt-4">
+                <ul className="pagination justify-content-center">
+                  <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`} >
+                    <button type="button"className="page-link"onClick={() => handlePageChange(currentPage - 1)}disabled={currentPage === 1}>Previous
+                    </button>
+                  </li>
+
+                  {Array.from(
+                    { length: totalPages },
+                    (_, index) => (
+                      <li key={index + 1} className={`page-item ${currentPage === index + 1 ? "active" : ""}`}>
+                        <button type="button" className="page-link" onClick={() => handlePageChange(index + 1)}>{index + 1}</button>
+                      </li>
+                    )
+                  )}
+
+                  <li className={`page-item ${currentPage === totalPages ? "disabled" : "" }`}>
+                    <button type="button" className="page-link" onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
+                      Next
+                    </button>
+                  </li>
+                </ul>
+              </nav>
+            )}
             </div>
           )}
         </div>

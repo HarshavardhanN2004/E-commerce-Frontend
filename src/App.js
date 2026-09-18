@@ -15,6 +15,7 @@ import AdminOrders from "./pages/AdminOrders";
 import AdminOrderDetails from "./pages/AdminOrderDetails";
 import AdminCategories from "./pages/AdminCategories";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
@@ -41,6 +42,7 @@ const App = () => {
           <Route path="/admin/categories" element={<AdminCategories />} />
         </Route>
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 };

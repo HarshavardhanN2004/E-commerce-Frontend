@@ -70,7 +70,9 @@ const Login = () => {
     <div className="login-page">
       <div className="login-card">
         <div className="login-header">
-          <div className="login-logo">E</div>
+         <div className="login-logo">
+            <i className="bi bi-bag-check-fill"></i>
+          </div>
           <h1>E-Commerce</h1>
           <p> Welcome back! Sign in to continue shopping. </p>
         </div>

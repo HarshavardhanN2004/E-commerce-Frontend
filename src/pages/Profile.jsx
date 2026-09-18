@@ -152,7 +152,6 @@ const Profile = () => {
       <main className="profile-page">
         <div className="container">
           <div className="profile-header">
-            <p className="profile-subtitle">  E-COMMERCE </p>
             <h1> My Profile</h1>
             <p> View and manage your account information </p>
           </div>
