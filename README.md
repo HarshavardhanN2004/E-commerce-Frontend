@@ -4,7 +4,6 @@ A responsive E-Commerce frontend built using **React.js, Redux Toolkit, Axios,Fe
 
 The frontend communicates with an ASP.NET Core Web API backend to provide a complete online shopping experience.
 
----
 
 ##  Technologies Used
 
@@ -19,8 +18,6 @@ The frontend communicates with an ASP.NET Core Web API backend to provide a comp
 * @hookform/resolvers
 * SweetAlert2
 * CSS
-
----
 
 ##  Features
 
@@ -78,8 +75,6 @@ Administrators can:
 * View products
 * Manage orders
 
-
-
 ##  Frontend Architecture
 
 The application uses React components together with Redux Toolkit for state management.
@@ -88,7 +83,7 @@ React Page / Component
         ↓
 Redux Slice
         ↓
-Axios API Request
+Axios or Fetch API Request
         ↓
 ASP.NET Core Web API
         ↓
@@ -97,9 +92,6 @@ Response
 Redux Store
         ↓
 React UI
-
-
-
 
 ##  Authentication Flow
 
@@ -114,7 +106,7 @@ JWT Token returned
      ↓
 Token stored in localStorage
      ↓
-Axios sends token with requests
+Axios or Fetch sends token with requests
      ↓
 Protected API access
 
@@ -146,18 +138,12 @@ This allows different pages and components to access shared application state.
 
 ##  API Communication
 
-Axios is used to communicate with the backend API.
+For the User Login Axios is used to communicate with the backend API.
+For the Admin Login Fetch  is used to communicate with the backend API.
 
-The API base URL is configured through an environment variable.
-
-Example:
-
-```env
-REACT_APP_API_URL=https://localhost:YOUR_PORT/api
-```
+The API base URL is configured in .env file .
 
 The frontend sends the JWT token with protected requests.
-
 
 
 ##  Form Validation
@@ -165,7 +151,7 @@ The frontend sends the JWT token with protected requests.
 Forms use:
 
 * React Hook Form
-* Yup
+* Yup validations
 * @hookform/resolvers
 
 Validation is implemented for forms such as:
@@ -180,10 +166,7 @@ Validation is implemented for forms such as:
 Validation errors are displayed to the user when form submission fails.
 
 
-
 ##  UI & Styling
-
-The application uses:
 
 * Bootstrap for responsive layouts
 * Custom CSS for page-specific styling
@@ -194,120 +177,6 @@ The application uses:
 * SweetAlert notifications
 
 CSS is maintained in separate files rather than using inline styles.
-
-
-
-##  Getting Started
-
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/HarshavardhanN2004/E-Commerce-Backend.git
-```
-
-Navigate to the frontend:
-
-```bash
-cd E-Commerce-Backend/e-commerce-frontend
-```
-
----
-
-### 2. Install Dependencies
-
-```bash
-npm install
-```
-
----
-
-### 3. Configure Environment Variables
-
-Create a `.env` file in the frontend root directory:
-
-```env
-REACT_APP_API_URL=https://localhost:YOUR_PORT/api
-```
-
-Replace `YOUR_PORT` with the port used by the backend API.
-
----
-
-### 4. Start the Application
-
-```bash
-npm start
-```
-
-The React application will normally run at:
-
-```text
-http://localhost:3000
-```
-
----
-
-##  Backend Requirement
-
-The frontend requires the **E-Commerce ASP.NET Core Web API** to be running.
-
-The complete application works as:
-
-```text
-React Frontend
-       ↓
-ASP.NET Core Web API
-       ↓
-Entity Framework Core
-       ↓
-SQL Server
-```
-
----
-
-##  Testing
-
-The frontend can be tested by running:
-
-```bash
-npm start
-```
-
-Then test the following application flows:
-
-```text
-Register
-   ↓
-Login
-   ↓
-Browse Products
-   ↓
-Add to Cart
-   ↓
-Update Cart
-   ↓
-Checkout
-   ↓
-Place Order
-   ↓
-View Orders
-```
-
-Admin flow:
-
-```text
-Admin Login
-     ↓
-Admin Dashboard
-     ↓
-Manage Products
-     ↓
-Manage Categories
-     ↓
-Manage Orders
-```
-
----
 
 ##  Responsive Design
 
@@ -320,7 +189,6 @@ The frontend is designed to work across:
 
 Bootstrap's responsive grid system and custom CSS are used to maintain a consistent user experience across screen sizes.
 
----
 
 ##  Security
 
@@ -333,8 +201,6 @@ The frontend implements:
 * Client-side form validation
 * Secure handling of authentication state
 
-
----
 
 ##  Future Enhancements
 
