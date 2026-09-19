@@ -229,7 +229,7 @@ const Products = () => {
             <div className="product-details-modal-body">
               <div className="product-details-modal-image-section">
                 {selectedProduct.imagePath ? (
-                 <img src={`${API_URL.replace("/api", "")}${product.imagePath}`} alt={product.productName} className="product-image"/>
+                <img src={`${API_URL.replace("/api", "")}${selectedProduct.imagePath}`}alt={selectedProduct.productName}className="product-details-modal-image"/>
                 ) : (
                   <div className="product-details-modal-image-placeholder">
                     No image found

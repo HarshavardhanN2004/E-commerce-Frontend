@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginSuccess } from "../features/slices/authSlice";
 import { loginUser } from "../services/authService";
+import Navbar from "../components/Navbar";
 import "../styles/Login.css";
 import Swal from "sweetalert2";
 
@@ -67,6 +68,8 @@ const Login = () => {
   };
 
   return (
+    <>
+    <Navbar page="login" />
     <div className="login-page">
       <div className="login-card">
         <div className="login-header">
@@ -133,6 +136,7 @@ const Login = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

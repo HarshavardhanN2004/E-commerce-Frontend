@@ -53,48 +53,45 @@ const AdminOrderDetails = () => {
     fetchOrder();
   }, [orderId]);
 
-  const handleUpdateStatus = async () => {
-    try {
-      setUpdatingStatus(true);
-      setError("");
-
-      const token = localStorage.getItem("token");
-    const response = await fetchApi(`/Orders/${orderId}/status`,
-        {
-          method: "PUT",
-          headers: {"Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(selectedStatus),
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.text();
-        throw new Error(
-          errorData || "Failed to update order status."
-        );
+  
+ const handleUpdateStatus = async () => {
+  try {
+    setUpdatingStatus(true);
+    setError("");
+    const token = localStorage.getItem("token");
+    const response = await fetchApi(
+      `/Orders/${orderId}/status?status=${encodeURIComponent(selectedStatus)}`,
+      {
+        method: "PUT",
+        headers: { Authorization: `Bearer ${token}`, },
       }
-
-      const updatedOrder = await response.json();
-      setOrder(updatedOrder);
-      setSelectedStatus(updatedOrder.status);
-
-      Swal.fire({
-        toast: true,
-        position: "top-end",
-        icon: "success",
-        title: "Order status updated successfully",
-        showConfirmButton: false,
-        timer: 2000,
-        timerProgressBar: true,
-      });
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setUpdatingStatus(false);
+    );
+    if (!response.ok) {
+      const errorData = await response.text();
+      throw new Error(
+        errorData || "Failed to update order status."
+      );
     }
-  };
+
+    const updatedOrder = await response.json();
+
+    setOrder(updatedOrder);
+    setSelectedStatus(updatedOrder.status);
+    Swal.fire({
+      toast: true,
+      position: "top-end",
+      icon: "success",
+      title: "Order status updated successfully",
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: true,
+    });
+  } catch (error) {
+    setError(error.message);
+  } finally {
+    setUpdatingStatus(false);
+  }
+};
 
   const getStatusBadgeClass = (status) => {
     switch (status) {

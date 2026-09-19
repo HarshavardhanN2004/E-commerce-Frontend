@@ -33,6 +33,12 @@
     cursor: pointer;
 }
 
+.navbar-auth-button {
+  min-width: 100px;
+  font-weight: 600;
+  border-radius: 6px;
+}
+
 .shop-navbar .nav-link {
     margin: 0 5px;
     color: #ffffff;

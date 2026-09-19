@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import "../styles/Register.css";
+import Navbar from "../components/Navbar";
 
 const registerSchema = yup.object({
   name: yup
@@ -86,6 +87,8 @@ const Register = () => {
   };
 
   return (
+      <>
+    <Navbar page="register" />
     <div className="register-page">
       <div className="register-card">
         <div className="register-header">
@@ -184,6 +187,7 @@ const Register = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
