@@ -201,6 +201,13 @@ The frontend implements:
 * Client-side form validation
 * Secure handling of authentication state
 
+To run the frontend:
+
+1. Open the `e-commerce-frontend` folder in Visual Studio Code.
+2. Open the terminal.
+3. Install the required packages:
+4. type "npm start" and the frontend will start to run .
+
 
 ##  Future Enhancements
 
