@@ -7,6 +7,7 @@ import { addProductToCart } from "../features/slices/cartSlice";
 import "../styles/Products.css";
 import Swal from "sweetalert2";
 
+const API_URL = process.env.REACT_APP_API_URL;
 const Products = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -152,7 +153,7 @@ const Products = () => {
                     <div className="product-card">
                       <div className="product-image-container">
                         {product.imagePath ? (
-                          <img src={`https://localhost:7198${product.imagePath}`} alt={product.productName} className="product-image"/>
+                        <img src={`${API_URL.replace("/api", "")}${product.imagePath}`}alt={product.productName} className="product-image"/>
                         ) : (
                           <div className="product-image-placeholder">
                             No image has found 
@@ -228,7 +229,7 @@ const Products = () => {
             <div className="product-details-modal-body">
               <div className="product-details-modal-image-section">
                 {selectedProduct.imagePath ? (
-                  <img src={`https://localhost:7198${selectedProduct.imagePath}`} alt={selectedProduct.productName} className="product-details-modal-image"/>
+                 <img src={`${API_URL.replace("/api", "")}${product.imagePath}`} alt={product.productName} className="product-image"/>
                 ) : (
                   <div className="product-details-modal-image-placeholder">
                     No image found

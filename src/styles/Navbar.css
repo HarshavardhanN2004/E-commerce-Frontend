@@ -221,10 +221,6 @@
     box-shadow: none;
 }
 
-/* ==============================
-   Logout Button
-   ============================== */
-
 .logout-button {
     display: flex;
     align-items: center;
