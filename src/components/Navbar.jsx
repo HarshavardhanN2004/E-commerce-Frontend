@@ -9,9 +9,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 const Navbar = ({ page }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const { name, email, role } = useSelector((state) => state.auth);
-
   const [showProfileCard, setShowProfileCard] = useState(false);
 
   const handleLogout = () => {

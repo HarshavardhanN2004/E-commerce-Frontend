@@ -57,6 +57,14 @@ const Profile = () => {
     }));
   };
 
+  const handleBack = () => {
+  if (profile.role === "Admin") {
+    navigate("/admin");
+  } else {
+    navigate("/products");
+  }
+};
+
   const handleEdit = () => {
     setEditing(true);
   };
@@ -240,6 +248,7 @@ const Profile = () => {
               </div>
 
               <div className="profile-actions">
+                <button type="button" className="back-profile-button" onClick={handleBack}> Back </button>
                 {!editing ? (
                   <button type="button" className="edit-profile-button" onClick={handleEdit} > Edit Profile </button>
                 ) : (

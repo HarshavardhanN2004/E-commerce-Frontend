@@ -13,7 +13,7 @@
 
 .admin-order-title-section h1 {
   margin: 0;
-  color: #111827;
+  color: #101725;
   font-size: 26px;
   font-weight: 800;
 }
@@ -139,7 +139,7 @@
   padding: 0 14px;
   border: none;
   border-radius: 6px;
-  background: #111827;
+  background: #2563eb;
   color: #ffffff;
   font-size: 12px;
   font-weight: 700;
@@ -148,7 +148,7 @@
 }
 
 .update-status-button:hover:not(:disabled) {
-  background: #374151;
+  background: #1d4ed8;
 }
 
 .update-status-button:disabled {

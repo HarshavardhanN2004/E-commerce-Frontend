@@ -165,7 +165,7 @@ const AdminOrderDetails = () => {
               <p> View customer, payment and product information.</p>
             </div>
 
-            <button className="back-orders-button" onClick={() => navigate("/admin/orders")}> ← Back to Orders</button>
+            <button className="back-orders-button" onClick={() => navigate("/admin/orders")}>  Back to Orders</button>
           </div>
 
           <div className="order-status-card">
@@ -177,7 +177,6 @@ const AdminOrderDetails = () => {
 
             </div>
             <div className="status-card-right">
-              <label htmlFor="orderStatus"> Update Status</label>
               <div className="status-update-controls">
 
                <select id="orderStatus" className="form-select" value={selectedStatus} onChange={(event) => setSelectedStatus(event.target.value)}

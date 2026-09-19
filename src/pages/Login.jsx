@@ -76,8 +76,7 @@ const Login = () => {
          <div className="login-logo">
             <i className="bi bi-bag-check-fill"></i>
           </div>
-          <h1>E-Commerce</h1>
-          <p>  Sign in to continue  </p>
+          <h1>SIGN IN</h1>
         </div>
 
         {serverError && (
